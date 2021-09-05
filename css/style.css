@@ -1,0 +1,474 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;500;700&display=swap");
+
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+  margin-top: 80px;
+  min-height: 100%;
+  background-color: #fafafa;
+  font-family: "Poppins", sans-serif;
+}
+.navbar a {
+  color: #fff;
+}
+
+.nav-wuling {
+  background-color: #364547;
+}
+.nav-item {
+  color: #fafafa;
+}
+a {
+  text-decoration: none;
+  color: #700000;
+  font-size: smaller;
+}
+a:hover {
+  color: #ff0000 !important;
+}
+
+.nav-logo {
+  max-width: 150px;
+}
+#carousel {
+  margin-top: -20px;
+  padding-top: 20px;
+  background-color: #00cba93f;
+}
+
+.slider-wuling img {
+  border-radius: 5px;
+}
+.info-wuling img {
+  border-radius: 10px;
+}
+
+.info-wuling {
+  border-radius: 5px;
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+.nama {
+  text-align: center !important;
+}
+#info {
+  background-color: #00cba93f;
+  color: #00362d;
+}
+.info-wuling .material-icons {
+  color: #fff;
+  font-size: 12px;
+  padding: 5px;
+  background-color: #00362d;
+  border-radius: 50px;
+
+  margin-right: 5px;
+}
+/* Text */
+h5 {
+  font-weight: 600;
+}
+h1 {
+  font-weight: 600;
+}
+/* Info Produk */
+.info-produk .btn {
+  background: rgb(255, 0, 0);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 0, 0, 1) 0%,
+    rgba(62, 0, 0, 1) 100%
+  );
+
+  font-size: 12px;
+  object-fit: cover;
+  border-radius: 15px 1px 15px 1px;
+}
+.info-produk a {
+  font-size: 11px;
+  text-decoration: none;
+  color: rgb(143, 0, 0);
+}
+.btn {
+  color: #fff !important;
+}
+
+/* Info Promo */
+
+.info-promo h6 {
+  text-align: start;
+}
+
+.info-promo img {
+  border-radius: 5px;
+}
+
+.info-promo a {
+  font-size: 11px;
+  text-decoration: none;
+  color: rgb(143, 0, 0);
+}
+
+.suv {
+  background-image: url(/img/almaz.png);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.info-produk .card {
+  background-color: #fff;
+  border: none;
+  border-radius: 15px 1px 50px 1px;
+}
+
+.artikel {
+  margin-top: 10px;
+}
+/* info Galeri */
+.info-galeri h6 {
+  text-align: start;
+}
+
+.info-galeri img {
+  border-radius: 5px;
+}
+
+.info-galeri a {
+  font-size: 11px;
+  text-decoration: none;
+  color: rgb(143, 0, 0);
+}
+
+/* footer */
+#footer {
+  padding-bottom: 35px;
+  background: rgb(255, 0, 0);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 0, 0, 1) 0%,
+    rgba(62, 0, 0, 1) 100%
+  );
+  height: 50px;
+  padding-top: 20px;
+}
+.footer {
+  margin-left: 15px;
+  text-align: start;
+  font-size: 11px;
+  color: rgb(177, 177, 177);
+}
+.footer a {
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+}
+
+/* UTILITIY */
+.th-deskripsi {
+  font-size: 9px !important;
+}
+.material-icons {
+  text-align: left;
+  margin-left: 10px;
+}
+
+.hubungi-kami {
+  text-align: center;
+  color: #fff;
+  background-color: #128c7e;
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 1px 15px 1px 15px;
+  -webkit-box-shadow: 0px 10px 13px -7px #000000,
+    5px 5px 15px 5px rgba(78, 78, 78, 0);
+  box-shadow: 0px 10px 13px -7px #a0a0a0, 5px 5px 15px 5px rgba(87, 87, 87, 0);
+  cursor: pointer;
+}
+.hubungi-kami:hover {
+  color: rgb(189, 189, 189);
+  background-color: #00362d;
+}
+.pilihan-produk {
+  text-align: center;
+  color: #fff;
+  background-color: #ffae00;
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 1px 15px 1px 15px;
+  -webkit-box-shadow: 0px 10px 13px -7px #000000,
+    5px 5px 15px 5px rgba(78, 78, 78, 0);
+  box-shadow: 0px 10px 13px -7px #a0a0a0, 5px 5px 15px 5px rgba(87, 87, 87, 0);
+  cursor: pointer;
+}
+.pilihan-produk:hover {
+  color: rgb(189, 189, 189);
+  background-color: #b47b00;
+}
+.video-frame {
+  width: 100% !important;
+  height: 200px;
+  border-radius: 10px;
+  justify-content: center;
+  margin: auto;
+}
+
+.notif-eror {
+  margin-top: 10px;
+  color: #ff0000;
+  font-size: small;
+}
+.breadcrumb {
+  font-size: 18px;
+  font-weight: 500;
+  color: #00362d;
+  margin-bottom: 20px;
+}
+.breadcrumb a {
+  color: #00362d;
+  text-decoration: none;
+}
+
+.float {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 10px;
+  right: 180px;
+  z-index: 100;
+}
+
+.my-float {
+  margin-top: 16px;
+}
+
+/* Produk Wuling */
+.produk-wuling h5 {
+  text-align: center;
+}
+.produk-wuling {
+  text-align: center;
+}
+
+.produk-wuling table {
+  font-size: 12px;
+  text-align: start;
+}
+
+.table {
+  font-size: 12px;
+
+  background-color: #fff;
+  border-radius: 1px 15px 1px 15px;
+  -webkit-box-shadow: 0px 10px 13px -7px #000000,
+    5px 5px 15px 5px rgba(78, 78, 78, 0);
+  box-shadow: 0px 10px 13px -7px #a0a0a0, 5px 5px 15px 5px rgba(87, 87, 87, 0);
+}
+
+.keterangan-table p {
+  font-size: 10px !important;
+}
+
+.td-warna .material-icons {
+  font-size: 16px;
+  margin-left: 5px;
+}
+
+.judul-merek {
+  text-align: center;
+  margin-top: -20px;
+  color: #fff;
+  padding: 5px;
+  padding-top: 10px;
+
+  border-radius: 1px 20px 1px 20px;
+  background: rgb(255, 0, 0);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 0, 0, 1) 0%,
+    rgba(62, 0, 0, 1) 100%
+  );
+}
+.judul-merek h6 {
+  text-decoration: none;
+}
+
+/* kontak */
+.kontak {
+  margin-top: 80px;
+  margin-bottom: 20px;
+}
+.kontak img {
+  max-width: 150px;
+  border-radius: 100px;
+}
+/* buttom */
+/* Buttom Icon */
+
+.btn {
+  width: 100%;
+
+  /* Blue background */
+  border: none;
+  /* Remove borders */
+  color: white;
+  /* White text */
+  padding: 12px 16px;
+  /* Some padding */
+  font-size: 16px;
+  /* Set a font size */
+  cursor: pointer;
+  /* Mouse pointer on hover */
+  border-radius: 1px 15px 1px 15px;
+
+  margin-bottom: 10px;
+  -webkit-box-shadow: 0px 10px 13px -7px #000000,
+    5px 5px 15px 5px rgba(78, 78, 78, 0);
+  box-shadow: 0px 10px 13px -7px #a0a0a0, 5px 5px 15px 5px rgba(87, 87, 87, 0);
+}
+
+.fa {
+  margin-right: 10px;
+}
+
+/* Darker background on mouse-over */
+
+/* btn whatsapp */
+.whatsapp {
+  background-color: #25d366;
+}
+
+.whatsapp:hover {
+  background-color: #128c7e;
+}
+
+/* btn instagram */
+.instagram {
+  background-color: #e17760;
+}
+
+.instagram:hover {
+  background-color: #a2292e;
+}
+
+/* btn facebook */
+.facebook {
+  background-color: #3b5998;
+}
+
+.facebook:hover {
+  background-color: #29498d;
+}
+
+/* btn website */
+.website {
+  background-color: #db2020;
+}
+
+.website:hover {
+  background-color: #780000;
+}
+/* akhir buttom */
+
+/* CSS ADMIN */
+.home-admin img {
+  max-height: 150px;
+  border-radius: 1px 15px 1px 15px;
+  -webkit-box-shadow: 0px 10px 13px -7px #000000,
+    5px 5px 15px 5px rgba(78, 78, 78, 0);
+  box-shadow: 0px 10px 13px -7px #a0a0a0, 5px 5px 15px 5px rgba(87, 87, 87, 0);
+}
+
+.home-admin h6 {
+  margin-top: 10px;
+}
+/* Buttom */
+.btn-save {
+  background: rgb(255, 0, 0);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 0, 0, 1) 0%,
+    rgba(62, 0, 0, 1) 100%
+  );
+}
+.btn-save:hover {
+  background-color: #700000;
+}
+
+.btn-edit {
+  background-color: #ffae00;
+}
+.btn-edit:hover {
+  background-color: rgb(255, 174, 0);
+}
+
+/* Produk */
+.warna-produk {
+  border-radius: 1px 15px 1px 15px;
+  -webkit-box-shadow: 0px 10px 13px -7px #000000,
+    5px 5px 15px 5px rgba(78, 78, 78, 0);
+  box-shadow: 0px 10px 13px -7px #a0a0a0, 5px 5px 15px 5px rgba(87, 87, 87, 0);
+}
+#bio-dataproduk {
+  color: #fff;
+  text-align: center;
+  padding: 15px;
+  background-color: #128c7e;
+}
+
+/* Info Kantor */
+#kantor {
+  background-color: #128c7e;
+  color: #fff;
+  padding-top: 20px;
+  margin-top: -20px;
+  text-align: center;
+}
+
+/* Form Pesanan */
+#form-pesanan {
+  background-color: #00cba93f;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+#form-pesanan .form-control {
+  border: none;
+}
+
+#form-pesanan label {
+  font-size: 13;
+}
+#detail-tutorial p {
+  font-size: smaller;
+}
+
+@media (min-width: 992px) {
+  .th-deskripsi {
+    font-size: 12px;
+  }
+  .kontak {
+    margin-top: 120px;
+  }
+
+  .nav-wuling {
+    height: 60px;
+  }
+  .nav-logo {
+    max-width: 250px;
+  }
+  .table {
+    font-size: 18px !important;
+  }
+  .keterangan-table p {
+    font-size: 14px !important;
+  }
+  /* 
+  body {
+    margin-right: 25%;
+    margin-left: 25%;
+  } */
+  .video-frame {
+    width: 100% !important;
+    height: 500px;
+  }
+}
