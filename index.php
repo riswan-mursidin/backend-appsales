@@ -14,7 +14,7 @@ if($_SESSION['login'] == TRUE){
             alt="logo-admin"
             class="mx-auto d-block"
           />
-          <h1 class="mt-5 mb-5">LOGIN</h1>
+          <h1 class="mt-5 mb-5">LOGIN AKUN</h1>
           <p>
             Selamat datang di aplikasi sales, <br />
             Masukkan username dan password anda
