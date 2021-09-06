@@ -47,6 +47,7 @@ if($_SESSION['login'] != TRUE){
                 value="<?= $rowakun['email'] ?>"
                 class="form-control"
                 id="floatingInput"
+                required
                 placeholder="name@example.com"
                 />
                 <input type="hidden" name="emaillama" value="="<?= $rowakun['email'] ?>">
@@ -59,6 +60,7 @@ if($_SESSION['login'] != TRUE){
                 class="form-control"
                 id="floatingPassword"
                 placeholder="Password"
+                required
                 />
                 <label for="floatingPassword">Password</label>
                 <?php if($notif_error != ""){ ?>
