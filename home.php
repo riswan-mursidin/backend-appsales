@@ -81,15 +81,12 @@ if($_SESSION['login'] != TRUE){
           <!-- admin -->
           <?php if($rowakun['status'] == 2){ ?>
             <div class="col-4 col-md-3 mt-3">
-<<<<<<< HEAD
               <a href="input-seo"
                 ><img src="img-admin/seo.png" class="img-fluid mx-auto d-block" alt="akun"
               /></a>
               <h6>ANALYTICS</h6>
             </div>
             <div class="col-4 col-md-3 mt-3">
-=======
->>>>>>> 3d0441aa9b4fd62073deab6f3ba508eb14a4ede5
               <a href="halaman-admin"> <img src="img-admin/userapp.png" class="img-fluid mx-auto d-block" alt="preview" /></a>
               <h6>PANGATURAN ADMIN</h6>
             </div>
