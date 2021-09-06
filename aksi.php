@@ -90,10 +90,13 @@ if(isset($_POST['regis'])){
 // edit akun
 if(isset($_POST['editakun'])){
     $email = $_POST['email'];
+    $emaillama = $_POST['emaillama'];
     $password = $_POST['password'];
     $hast_past = password_hash($password, PASSWORD_DEFAULT);
     $querycekemail = mysqli_query($conn, "SELECT * FROM admin WHERE email='$email'");
-    if(mysqli_fetch_assoc($querycekemail) > 0){
+    if($email == $emaillama){
+        $queryeditakun = mysqli_query($conn, "UPDATE admin SET password = '$hast_past'");
+    }elseif(mysqli_fetch_assoc($querycekemail) > 0){
         $notif_error = "email sudah terdaftar";
     }else{
         $queryeditakun = mysqli_query($conn, "UPDATE admin SET email = '$email', password = '$hast_past'");
