@@ -20,11 +20,11 @@ if($_SESSION['login'] != TRUE){
           <?php } ?>
           <!-- sALES FITUR -->
           <?php if($rowakun['status'] == 2 || $rowakun['status'] == 1){ ?>
-          <!--<div class="alert alert-warning alert-dismissible fade show" role="alert">-->
-          <!--   <a href="https://websales.galeriide.net"><strong>KLIK THEME WEB APPSALES V.2 RELEASE! </strong></a> <br> <span style="font-size:smaller">GRATIS UPDATE buat kak  <?= $rowakun['username'] ?> <br> Hubungi Admin untuk Konfirmasi nama Domainnya. <a href="https://api.whatsapp.com/send?phone=6282187777289&text=Saya%20mau%20update%20tema%20baru%20nama%20domain%20saya%20adalah%20www.[isi-namadomain-anda-disini].com">>>Klik disini</a>-->
-          <!--  </hr><br>GRATIS UPDATE BERLAKU SAMPAI TANGGAL 31 AGUSTUS 2021</span>-->
-          <!--  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>-->
-          <!--</div>-->
+         <div class="alert alert-info alert-dismissible fade show" role="alert">-->
+         <strong>WORK IN PROGRESS! </strong> <br> <span style="font-size:smaller"> MENU DAN FITUR ANALYTICS DAN VIDEO TUTORIAL Sementara kami kembangakan dulu yah kak  <?= $rowakun['username'] ?> 
+           </hr><br>Nanti kami infokan lagi jika sudah siap untuk digunakan.</span>-->
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
           <h5>HAI KAK <?= strtoupper($rowakun['username'])  ?></h5>
           <p>Semoga penjualan bulan ini melebihi target yah. Aamiin</p>
           <div class="col-4 col-md-3 mt-3">
@@ -74,7 +74,7 @@ if($_SESSION['login'] != TRUE){
               <a href="input-seo"
                 ><img src="img-admin/seo.png" class="img-fluid mx-auto d-block" alt="akun"
               /></a>
-              <h6>SEO</h6>
+              <h6>ANALYTICS</h6>
             </div>
             <div class="col-4 col-md-3 mt-3">
               <a href="halaman-admin"> <img src="img-admin/userapp.png" class="img-fluid mx-auto d-block" alt="preview" /></a>
