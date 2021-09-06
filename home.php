@@ -20,9 +20,9 @@ if($_SESSION['login'] != TRUE){
           <?php } ?>
           <!-- sALES FITUR -->
           <?php if($rowakun['status'] == 2 || $rowakun['status'] == 1){ ?>
-         <div class="alert alert-info alert-dismissible fade show" role="alert">-->
+         <div class="alert alert-info alert-dismissible fade show" role="alert">
          <strong>WORK IN PROGRESS! </strong> <br> <span style="font-size:smaller"> MENU DAN FITUR ANALYTICS DAN VIDEO TUTORIAL Sementara kami kembangakan dulu yah kak  <?= $rowakun['username'] ?> 
-           </hr><br>Nanti kami infokan lagi jika sudah siap untuk digunakan.</span>-->
+           </hr><br>Nanti kami infokan lagi jika sudah siap untuk digunakan.</span>
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
           <h5>HAI KAK <?= strtoupper($rowakun['username'])  ?></h5>

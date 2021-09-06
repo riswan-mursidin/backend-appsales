@@ -24,7 +24,7 @@ if($_SESSION['login'] != TRUE){
                 <div class="mb-3">
                     <label for="google" class="form-label" style="font-weight:bold">GOOGLE ANALYTICS</label>
                      <p>Masukkan script Google Analytics</p>
-                    <input type="text" name="google" id="google" class="form-control" style="height: 100px" value="<?= $valuegoogle ?>">
+                     <textarea name="google" id="google" rows="3" class="form-control"><?= $valuegoogle ?></textarea>
                 </div>
                 <div class="col-6 col-sm-3 mb-3">
                     <button name="googleaksi" type="submit" class="btn btn-success">Simpan</button>
@@ -41,7 +41,7 @@ if($_SESSION['login'] != TRUE){
                 <div class="mb-3">
                     <label for="fb" class="form-label" style="font-weight:bold">Facebook Pixel</label>
                     <p>Masukkan script Facebok Pixel</p>
-                    <input type="text" name="fb" id="fb" class="form-control" style="height: 100px" value="<?= $valuefb ?>">
+                    <textarea name="fb" id="fb" rows="3" class="form-control"><?= $valuefb ?></textarea>
                 </div>
                 <div class="col-6 col-sm-3 mb-3">
                     <button name="fbaksi" type="submit" class="btn btn-success">Simpan</button>                
