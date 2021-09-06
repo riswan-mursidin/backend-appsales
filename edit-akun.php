@@ -49,6 +49,7 @@ if($_SESSION['login'] != TRUE){
                 id="floatingInput"
                 placeholder="name@example.com"
                 />
+                <input type="hidden" name="emaillama" value="="<?= $rowakun['email'] ?>">
                 <label for="floatingInput">Email address</label>
             </div>
             <div class="form-floating mb-3">
