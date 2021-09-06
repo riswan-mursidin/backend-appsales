@@ -95,11 +95,11 @@ if(isset($_POST['editakun'])){
     $hast_past = password_hash($password, PASSWORD_DEFAULT);
     $querycekemail = mysqli_query($conn, "SELECT * FROM admin WHERE email='$email'");
     if($email == $emaillama){
-        $queryeditakun = mysqli_query($conn, "UPDATE admin SET password = '$hast_past'");
+        $queryeditakun = mysqli_query($conn, "UPDATE admin SET password = '$hast_past' WHERE id_admin='$_SESSION[user]'");
     }elseif(mysqli_fetch_assoc($querycekemail) > 0){
         $notif_error = "email sudah terdaftar";
     }else{
-        $queryeditakun = mysqli_query($conn, "UPDATE admin SET email = '$email', password = '$hast_past'");
+        $queryeditakun = mysqli_query($conn, "UPDATE admin SET email = '$email', password = '$hast_past' WHERE id_admin='$_SESSION[user]'");
     }
 }
 
