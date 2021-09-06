@@ -14,7 +14,7 @@ if($_SESSION['login'] != TRUE){
         </nav>
     </div>
     <section>
-        <form action="" method="post" autocomplete="off" class="container">
+        <form action="" method="post" class="container">
             <?php  
                 $querygoogle = mysqli_query($conn, "SELECT * FROM google_analysis WHERE id_admin='$_SESSION[user]'");
                 $rowgoogle = mysqli_fetch_assoc($querygoogle);
@@ -24,14 +24,14 @@ if($_SESSION['login'] != TRUE){
                 <div class="mb-3">
                     <label for="google" class="form-label" style="font-weight:bold">GOOGLE ANALYTICS</label>
                      <p>Masukkan script Google Analytics</p>
-                    <input  type="text" name="google" id="google" class="form-control" style="height: 100px" value="<?= $valuegoogle ?>">
+                    <input type="text" name="google" id="google" class="form-control" style="height: 100px" value="<?= $valuegoogle ?>">
                 </div>
                 <div class="col-6 col-sm-3 mb-3">
                     <button name="googleaksi" type="submit" class="btn btn-success">Simpan</button>
                 </div>
             </div>
         </form>
-        <form action="" method="post" autocomplete="off" class="container">
+        <form action="" method="post"  class="container">
             <?php  
                 $queryfb = mysqli_query($conn, "SELECT * FROM fb_pixel WHERE id_admin='$_SESSION[user]'");
                 $rowfb = mysqli_fetch_assoc($queryfb);
