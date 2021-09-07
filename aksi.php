@@ -1029,7 +1029,7 @@ if(isset($_POST['uplaodfileexcel'])){
 }
 
 if(isset($_POST['googleaksi'])){
-    $script = $_POST['google'];
+    $script = '""'.$_POST['google'].'""';
     $querygoogle = mysqli_query($conn, "SELECT id_analysis FROM google_analysis WHERE id_admin='$_SESSION[user]'");
     if(mysqli_num_rows($querygoogle) > 0){
         mysqli_query($conn, "UPDATE google_analysis SET script_analysis='$script' WHERE id_admin='$_SESSION[user]'");
