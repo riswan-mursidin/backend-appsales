@@ -1029,22 +1029,50 @@ if(isset($_POST['uplaodfileexcel'])){
 }
 
 if(isset($_POST['googleaksi'])){
-    $script = '//'.$_POST['google'].'//';
+    $script = $_POST['google'];
+    $array = explode("'",$script);
+    for($i=0;$i<count($array);$i++){
+        if($i==count($array)-1){
+            $scriptdb .= $array[$i];
+        }else{
+            $scriptdb .= $array[$i].'"';
+        }
+    }
+
+    $mystring = $script;
+    $findme   = "'";
+    if(!strpos($mystring, $findme)){
+        $scriptdb = $script;
+    }
     $querygoogle = mysqli_query($conn, "SELECT id_analysis FROM google_analysis WHERE id_admin='$_SESSION[user]'");
     if(mysqli_num_rows($querygoogle) > 0){
-        mysqli_query($conn, "UPDATE google_analysis SET script_analysis='$script' WHERE id_admin='$_SESSION[user]'");
+        mysqli_query($conn, "UPDATE google_analysis SET script_analysis='$scriptdb' WHERE id_admin='$_SESSION[user]'");
     }else{
-        mysqli_query($conn, "INSERT INTO google_analysis (script_analysis,id_admin) VALUES('$script','$_SESSION[user]')");
+        mysqli_query($conn, "INSERT INTO google_analysis (script_analysis,id_admin) VALUES('$scriptdb','$_SESSION[user]')");
     }
 }
 
 if(isset($_POST['fbaksi'])){
     $script = $_POST['fb'];
+    $array = explode("'",$script);
+    for($i=0;$i<count($array);$i++){
+        if($i==count($array)-1){
+            $scriptdb .= $array[$i];
+        }else{
+            $scriptdb .= $array[$i].'"';
+        }
+    }
+
+    $mystring = $script;
+    $findme   = "'";
+    if(!strpos($mystring, $findme)){
+        $scriptdb = $script;
+    }
     $queryfb = mysqli_query($conn, "SELECT id_pixel FROM fb_pixel WHERE id_admin='$_SESSION[user]'");
     if(mysqli_num_rows($queryfb) > 0){
-        mysqli_query($conn, "UPDATE fb_pixel SET script_pixel='$script' WHERE id_admin='$_SESSION[user]'");
+        mysqli_query($conn, "UPDATE fb_pixel SET script_pixel='$scriptdb' WHERE id_admin='$_SESSION[user]'");
     }else{
-        mysqli_query($conn, "INSERT INTO fb_pixel (script_pixel,id_admin) VALUES('$script','$_SESSION[user]')");
+        mysqli_query($conn, "INSERT INTO fb_pixel (script_pixel,id_admin) VALUES('$scriptdb','$_SESSION[user]')");
     }
 }
 
