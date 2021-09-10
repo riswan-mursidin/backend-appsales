@@ -70,14 +70,14 @@ if($_SESSION['login'] != TRUE){
           <?php } ?>
           <!-- ADS MAKRKETING -->
           <?php if($rowakun['status'] == 3){ ?>
-            <div class="col col-sm-3 col-md-3 mt-3">
+            <div class="col-4 col-sm-3 col-md-3 mt-3">
               <a href="addsense"> <img src="img-admin/kontak.png" alt="slider" /></a>
               <h6>DATA PENJUALAN</h6>
             </div>
           <?php } ?>
           <!-- admin -->
           <?php if($rowakun['status'] == 2){ ?>
-            <div class="col col-sm-3 col-md-3 mt-3">
+            <div class="col-4 col-sm-3 col-md-3 mt-3">
               <a href="data-penjualan"> <img src="img-admin/penjualan.png" alt="slider" /></a>
               <h6>DATA PENJUALAN</h6>
             </div>
