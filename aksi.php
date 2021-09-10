@@ -82,6 +82,7 @@ if(isset($_POST['regis'])){
         $queryregis = "INSERT INTO admin (username,email,no_tlp,password,status) VALUES('$username','$email',$no_tlp,'$password','0')";
         $resultregis = mysqli_query($conn, $queryregis);
         if($resultregis){
+            $querypenjualan = mysqli_query($conn, "INSERT INTO data_penjualan (nama_customer) VALUES('$username')");
             header('Location: https://api.whatsapp.com/send?phone=6282189000701&text=Hai%20Admin%20GALERIIDE%20Saya%20tertarik%20untuk%20membuat%20websiteAppSales%20ini%20Mohon%20info%20lebih%20lanjut');
         }
     }
@@ -1186,6 +1187,46 @@ if(isset($_POST['aksihapuskategori'])){
         }
         $querydelete = mysqli_query($conn, "DELETE FROM video_tutorial WHERE kategori_video='$id'");
     }
+}
+
+if(isset($_POST['aksipenjualan'])){
+    $username = $_POST['username'];
+    $tgl = $_POST['tgl'];
+    $pembayaran = $_POST['pembayaran'];
+    $jangka = $_POST['jangka'];
+    $status = $_POST['status'];
+    $bonus = $_POST['bonus'];
+    $sisa = 300000 - $bonus;
+    if($pembayaran == "credit"){
+        $querysave = mysqli_query($conn, "INSERT INTO data_penjualan (nama_customer,tgl_daftar,metode_pembayaran,jangka_waktu,status_pembayaran,bonus_penjualan,sisa) VALUES('$username','$tgl','$pembayaran','$jangka','$status','$bonus','$sisa')");
+    }else{
+        $querysave = mysqli_query($conn, "INSERT INTO data_penjualan (nama_customer,tgl_daftar,metode_pembayaran,jangka_waktu,status_pembayaran,bonus_penjualan,sisa) VALUES('$username','$tgl','$pembayaran','No','$status','$bonus','$sisa')");
+    }
+
+}
+
+if(isset($_POST['aksieditsal'])){
+    $pembayaran = $_POST['pembayaran'];
+    $jangka = $_POST['jangka'];
+    $status = $_POST['status'];
+    $bonus = $_POST['bonus'];
+    $sisa = 300000 - $bonus;
+    if($pembayaran == "credit"){
+        $querysave = mysqli_query($conn, "UPDATE data_penjualan SET metode_pembayaran='$pembayaran',jangka_waktu='$jangka',status_pembayaran='$status',bonus_penjualan='$bonus',sisa='$sisa' WHERE id_customer='$id' ");
+        if($querysave){
+            echo "<script type='text/javascript'>document.location.href = 'data-penjualan';</script>";
+        }
+    }else{
+        $querysave = mysqli_query($conn, "UPDATE data_penjualan SET metode_pembayaran='$pembayaran',jangka_waktu='No',status_pembayaran='$status',bonus_penjualan='$bonus',sisa='$sisa' WHERE id_customer='$id' ");
+        if($querysave){
+            echo "<script type='text/javascript'>document.location.href = 'data-penjualan';</script>";
+        }
+    }
+}
+
+if(isset($_POST['hapussales'])){
+    $id = $_POST['id'];
+    $querydel = mysqli_query($conn, "DELETE FROM data_penjualan WHERE id_customer='$id'");
 }
 
 

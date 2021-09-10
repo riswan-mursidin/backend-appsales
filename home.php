@@ -8,16 +8,6 @@ if($_SESSION['login'] != TRUE){
     <section id="admin">
       <div class="container home-admin">
         <div class="row text-center">
-
-          <!-- ADS MAKRKETING -->
-          <?php if($rowakun['status'] == 3){ ?>
-            <h5>HAI KAK <?= strtoupper($rowakun['username'])  ?></h5>
-            <p>Mohon Bantuannya yahh untuk Promosi dan ADDSENSE.</p>
-            <div class="col col-sm-3 col-md-3 mt-3">
-              <a href="addsense"> <img src="img-admin/kontak.png" alt="slider" /></a>
-              <h6>ADDSENSE</h6>
-            </div>
-          <?php } ?>
           <!-- sALES FITUR -->
           <?php if($rowakun['status'] == 2 || $rowakun['status'] == 1){ ?>
          <div class="alert alert-info alert-dismissible fade show" role="alert">
@@ -78,9 +68,19 @@ if($_SESSION['login'] != TRUE){
             <h6>VIDEO TUTORIAL</h6>
           </div>
           <?php } ?>
+          <!-- ADS MAKRKETING -->
+          <?php if($rowakun['status'] == 3){ ?>
+            <div class="col col-sm-3 col-md-3 mt-3">
+              <a href="addsense"> <img src="img-admin/kontak.png" alt="slider" /></a>
+              <h6>DATA PENJUALAN</h6>
+            </div>
+          <?php } ?>
           <!-- admin -->
           <?php if($rowakun['status'] == 2){ ?>
-            
+            <div class="col col-sm-3 col-md-3 mt-3">
+              <a href="data-penjualan"> <img src="img-admin/penjualan.png" alt="slider" /></a>
+              <h6>DATA PENJUALAN</h6>
+            </div>
             <div class="col-4 col-md-3 mt-3">
               <a href="halaman-admin"> <img src="img-admin/userapp.png" class="img-fluid mx-auto d-block" alt="preview" /></a>
               <h6>PANGATURAN ADMIN</h6>
