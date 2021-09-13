@@ -9,7 +9,21 @@ if($_SESSION['login'] != TRUE){
       <div class="container home-admin">
         <div class="row text-center">
           <!-- sALES FITUR -->
-         
+          <?php  
+          $querypenjualan = mysqli_query($conn, "SELECT tgl_daftar FROM data_penjualan WHERE nama_customer='$rowakun[username]'");
+          if(mysqli_num_rows($querypenjualan)){
+            $rowtgl = mysqli_fetch_assoc($querypenjualan);
+            $array = explode("-",$rowtgl['tgl_daftar']);
+            $thndb = $array[0];
+            $thnnow = date("Y");
+            if($thndb < $thnnow){
+
+            }
+          ?>
+            <div class="alert alert-danger" role="alert">
+              Masa Pakai anda berakhir, Segera hubungi Admin untuk melakukan pembayaran!
+            </div>
+          <?php } ?>
           <h5>HAI KAK <?= strtoupper($rowakun['username'])  ?></h5>
           <p>Semoga penjualan bulan ini melebihi target yah. Aamiin</p>
           <div class="col-4 col-md-3 mt-3">

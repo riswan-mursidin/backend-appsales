@@ -63,9 +63,7 @@ if($rowakun['status'] != 2){
                         $value = 1; 
                         for($k=0;$k<count($status);$k++){
                             $selected = $value == $row['status_pembayaran'] ? "selected='selected'" : "";
-                            $idsel = $value == 2 ? "id='nas'" : "";
-                            $hidden = $row['metode_pembayaran'] == "cash" && $value == 2 ? "hidden" : "";
-                            echo '<option value="'.$value.'" '.$selected.' '.$idsel.' '.$hidden.'>'.$status[$k].'</option>';
+                            echo '<option value="'.$value.'" '.$selected.'>'.$status[$k].'</option>';
                             ++$value;
                         }
                         ?>
@@ -109,10 +107,10 @@ if($rowakun['status'] != 2){
                 if(str == "credit"){
                     document.getElementById("jangka").style.display = "block";
                     document.getElementById("bonus").value = "150000";
-                    document.getElementById("nas").hidden = false;
+                    
                     document.getElementById("sisa").innerHTML = "*Bonus sisa Rp.150000";
                 }else{
-                    document.getElementById("nas").hidden = true;
+                
                     document.getElementById("jangka").style.display = "none";
                     document.getElementById("bonus").value = "300000";
                     document.getElementById("sisa").innerHTML = "*Bonus sisa Rp.0";
