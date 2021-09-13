@@ -32,6 +32,124 @@ function showKategori($id){
         <section id="data-listharga">
             <div class="container">
                 <div class="row">
+
+                    <div class="col-12 col-sm-12">
+                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#referal">
+                            DAFTAR MARKETING
+                        </button>
+                    </div>
+
+                    <div class="collapse mb-3 mt-3" id="referal">
+                        <div class="col-6 col-sm-3 col-md-3 mb-3 mt-3" >
+                            <button type="button" class="btn btn-danger btn-save" data-bs-toggle="modal" data-bs-target="#tambahmarketing">+ MARKETING</button>
+                        </div>
+                        <!-- modal tambah marketing -->
+                        <div class="modal fade" id="tambahmarketing" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                <form class="modal-content" action="" method="post" enctype="multipart/form-data">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="staticBackdropLabel">TAMBAH MARKETING</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            <label for="kode" class="form-label">Kode Referal</label>
+                                            <input type="text" name="kode" id="kode" class="form-control">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="nama" class="form-label">Nama Marketing</label>
+                                            <input type="text" name="nama" id="nama" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" name="aksisimpanmarket" class="btn btn-danger btn-save">Simpan</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="col-12 table-responsive">
+                            <table class="table table-striped table-hover" style="font-size: small;">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Kode Referal</th>
+                                        <th scope="col">Nama Marketing</th>
+                                        <th scope="col">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <?php  
+                                $no = 1;
+                                $sqlmarket = mysqli_query($conn, "SELECT * FROM data_marketing");
+                                while($rowmarket = mysqli_fetch_assoc($sqlmarket)){
+                                ?>
+                                    <tr>
+                                        <td><?= $no++ ?></td>  
+                                        <td><?= $rowmarket['kode'] ?></td>
+                                        <td><?= ucfirst($rowmarket['nama']) ?></td>
+                                        <td>
+                                            <a href="#" data-bs-target="#editmarket<?= $rowmarket['id'] ?>" data-bs-toggle="modal"><span class="material-icons">edit</span></a>
+                                            <a href="#" data-bs-target="#hapusmarket<?= $rowmarket['id'] ?>" data-bs-toggle="modal"><span class="material-icons">delete</span></a>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- modal edit/delete marketing -->
+                        <?php  
+                        $sqlmarket = mysqli_query($conn, "SELECT * FROM data_marketing");
+                        while($rowmarket = mysqli_fetch_assoc($sqlmarket)){
+                        ?>
+                        <div class="modal fade" id="editmarket<?= $rowmarket['id'] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                <form class="modal-content" action="" method="post" enctype="multipart/form-data">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="staticBackdropLabel">EDIT MARKETING</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            <label for="kode" class="form-label">Kode Referal</label>
+                                            <input type="text" name="kode" id="kode" class="form-control" value="<?= $rowmarket['kode'] ?>">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="nama" class="form-label">Nama Marketing</label>
+                                            <input type="text" name="nama" id="nama" class="form-control" value="<?= $rowmarket['nama'] ?>">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="hidden" name="id" value="<?= $rowmarket['id'] ?>">
+                                        <button type="submit" name="aksieditmarket" class="btn btn-danger btn-save">Simpan</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="hapusmarket<?= $rowmarket['id'] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                <form class="modal-content" action="" method="post" enctype="multipart/form-data">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="staticBackdropLabel">HAPUS MARKETING</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Yakin ingin menghapus <?= $rowmarket['nama'] ?> dari daftar marketing?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="hidden" name="id" value="<?= $rowmarket['id'] ?>">
+                                        <button type="submit" name="aksihapusmarket" class="btn btn-danger btn-save">YA</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">TIDAK</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <?php } ?>
+
                     <div class="col-12 col-sm-12">
                         <button class="btn btn-primary"  type="button" data-bs-toggle="collapse" data-bs-target="#datasales" aria-expanded="false" aria-controls="collapseExample">
                             EDIT DATA COSTUMER

@@ -43,7 +43,7 @@ if($_SESSION['login'] == TRUE){
                 />
                 <label for="floatingInput">Email address</label>
             </div>
-                 <div class="form-floating mb-3">
+            <div class="form-floating mb-3">
                 <input
                 type="text"
                 name="no_tlp"
@@ -53,6 +53,17 @@ if($_SESSION['login'] == TRUE){
                 placeholder="no telp"
                 />
                 <label for="floatingInput">Whatsapp</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input
+                type="text"
+                name="kode"
+                class="form-control"
+                id="floatingInput"
+                placeholder="no telp"
+                />
+                <label for="floatingInput">Kode Referall</label>
+                <p style="font-size: 10px;">* Bagi yang memiliki kode referal</p>
             </div>
             <div class="form-floating mb-3">
                 <input

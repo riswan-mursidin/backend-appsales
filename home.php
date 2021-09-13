@@ -9,7 +9,6 @@ if($_SESSION['login'] != TRUE){
       <div class="container home-admin">
         <div class="row text-center">
           <!-- sALES FITUR -->
-          <?php if($rowakun['status'] == 2 || $rowakun['status'] == 1){ ?>
          
           <h5>HAI KAK <?= strtoupper($rowakun['username'])  ?></h5>
           <p>Semoga penjualan bulan ini melebihi target yah. Aamiin</p>
@@ -63,16 +62,8 @@ if($_SESSION['login'] != TRUE){
             <a href="kategori-tutorial"> <img src="img-admin/tutorial.png" class="img-fluid mx-auto d-block" alt="preview" /></a>
             <h6>VIDEO TUTORIAL</h6>
           </div>
-          <?php } ?>
-          <!-- ADS MAKRKETING -->
-          <?php if($rowakun['status'] == 3){ ?>
-            <div class="col-4 col-sm-3 col-md-3 mt-3">
-              <a href="addsense"> <img src="img-admin/kontak.png" class="img-fluid mx-auto d-block" alt="slider" /></a>
-              <h6>DATA PENJUALAN</h6>
-            </div>
-          <?php } ?>
           <!-- admin -->
-          <?php if($rowakun['status'] == 2){ ?>
+          <?php if($rowakun['status'] == 2 || $rowakun['status'] == 3){ ?>
             <div class="col-4 col-sm-3 col-md-3 mt-3">
               <a href="data-penjualan"> <img src="img-admin/penjualan.png" class="img-fluid mx-auto d-block" alt="slider" /></a>
               <h6>DATA PENJUALAN</h6>

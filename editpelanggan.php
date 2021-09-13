@@ -29,6 +29,10 @@ if($rowakun['status'] != 2){
         <div class="container">
             <form method="post" action="" class="row">
                 <div class="col-12 mb-3">
+                    <label for="market" class="form-label">Nama Marketing</label>
+                    <input type="text" name="" id="" readonly value="<?= ucfirst($row['nama_marketing']) ?>" class="form-control">
+                </div>
+                <div class="col-12 mb-3">
                     <label for="" class="form-label">Username</label>
                     <input type="text" name="" id="" readonly value="<?= ucfirst($row['nama_customer']) ?>" class="form-control">
                 </div>

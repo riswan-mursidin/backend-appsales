@@ -2,7 +2,7 @@
 if($_SESSION['login'] != TRUE){
     echo "<script type='text/javascript'>document.location.href = 'index';</script>";
 }
-if($rowakun['status'] != 2){
+if($rowakun['status'] < 2){
     echo "<script type='text/javascript'>document.location.href = 'home';</script>";
 }
 ?>
@@ -18,8 +18,9 @@ if($rowakun['status'] != 2){
         <section id="data-listharga">
             <div class="container">
                 <div class="row">
+                    <?php if($rowakun['status'] == 2){ ?>
                     <div class="col-12 col-sm-3 mb-3">
-                    <button type="button" class="btn btn-primary" data-bs-target="#tambahcustomer" data-bs-toggle="modal">+MANUAL CUSTOMER</button>
+                        <button type="button" class="btn btn-primary" data-bs-target="#tambahcustomer" data-bs-toggle="modal">+MANUAL CUSTOMER</button>
                         <!-- Modal -->
                         <div class="modal fade" id="tambahcustomer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
@@ -29,6 +30,18 @@ if($rowakun['status'] != 2){
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
+                                        <div class="mb-3">
+                                            <label for="market" class="form-label">Nama Marketing</label>
+                                            <select name="marketing" required id="marketing" class="form-select">
+                                                <option value="" selected>Pilih Marketing</option>
+                                                <?php  
+                                                $query = mysqli_query($conn, "SELECT * FROM data_marketing");
+                                                while($row = mysqli_fetch_assoc($query)){
+                                                ?>
+                                                <option value="<?= $row['nama'] ?>"><?= ucfirst($row['nama']) ?></option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
                                         <div class="mb-3">
                                             <label for="username" class="form-label">Username Yang Terdaftar</label>
                                             <select name="username" required class="form-select" id="username">
@@ -89,11 +102,13 @@ if($rowakun['status'] != 2){
                             </div>
                         </div>
                     </div>
+                    <?php } ?>
                     <div class="col-12 table-responsive">
                         <table class="table table-striped table-hover " style="font-size: small" >
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
+                                    <th scope="col">MARKETING</th>
                                     <th scope="col">NAMA</th>
                                     <th scope="col">TANGGAL</th>
                                     <th scope="col">PEMBAYARAN</th>
@@ -101,18 +116,21 @@ if($rowakun['status'] != 2){
                                     <th scope="col">STATUS</th>
                                     <th scope="col">BONUS</th>
                                     <th scope="col">SISA</th>
+                                    <?php if($rowakun['status'] == 2){ ?>
                                     <th scope="col">AKSI</th>
+                                    <?php } ?>
                                 </tr>
                             </thead>
                             <tbody>
                             <?php  
-                            $queryadmin = "SELECT * FROM data_penjualan";
+                            $queryadmin = "SELECT * FROM data_penjualan ORDER BY tgl_daftar DESC";
                             $j = 0;
                             $resultadmin = mysqli_query($conn, $queryadmin);
                             while($row = mysqli_fetch_assoc($resultadmin)){
                             ?>
                                 <tr>
                                     <td><?= ++$j ?></td>
+                                    <td><?= ucfirst($row['nama_marketing']) ?></td>
                                     <td><?= ucfirst($row['nama_customer']) ?></td>
                                     <td><?= $row['tgl_daftar'] ?></td>
                                     <td><?= ucfirst($row['metode_pembayaran']) ?></td>
@@ -132,10 +150,12 @@ if($rowakun['status'] != 2){
                                     
                                     <td>Rp.<?= number_format($row['bonus_penjualan'],0,",",".") ?></td>
                                     <td>Rp.<?= number_format($row['sisa'],0,",",".") ?></td>
+                                    <?php if($rowakun['status'] == 2){ ?>
                                     <td>
                                         <a href="editpelanggan?id=<?= $row['id_customer'] ?>" ><span class="material-icons">edit</span></a>
                                         <a href="#hapuspelanggan<?= $row['id_customer'] ?>" data-bs-toggle="modal"><span class="material-icons">delete</span></a>
                                     </td>
+                                    <?php } ?>
                                 </tr>
                             <?php } ?>
                             </tbody>

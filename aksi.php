@@ -63,6 +63,7 @@ if(isset($_POST['regis'])){
     $email = $_POST['email'];
     $no_tlp = $_POST['no_tlp'];
     $password = $_POST['password'];
+    $koderef = $_POST['kode'];
     // query data untuk cek username
     $queryusername = "SELECT username FROM admin WHERE username='$username'";
     $resultusername = mysqli_query($conn, $queryusername); // eksekusi query
@@ -82,8 +83,20 @@ if(isset($_POST['regis'])){
         $queryregis = "INSERT INTO admin (username,email,no_tlp,password,status) VALUES('$username','$email',$no_tlp,'$password','0')";
         $resultregis = mysqli_query($conn, $queryregis);
         if($resultregis){
-            $querypenjualan = mysqli_query($conn, "INSERT INTO data_penjualan (nama_customer) VALUES('$username')");
-            header('Location: https://api.whatsapp.com/send?phone=6282189000701&text=Hai%20Admin%20GALERIIDE%20Saya%20tertarik%20untuk%20membuat%20websiteAppSales%20ini%20Mohon%20info%20lebih%20lanjut');
+            if($koderef != ""){
+                $marketquery = mysqli_query($conn, "SELECT * FROM data_marketing WHERE kode='$koderef'");
+                if(mysqli_num_rows($marketquery) > 0){
+                    $rowmarket = mysqli_fetch_assoc($marketquery);
+                    $namamarket = $rowmarket['nama'];
+                    $querypenjualan = mysqli_query($conn, "INSERT INTO data_penjualan (nama_marketing,nama_customer) VALUES('$namamarket','$username')");
+                    header('Location: https://api.whatsapp.com/send?phone=6282189000701&text=Hai%20Admin%20GALERIIDE%20Saya%20tertarik%20untuk%20membuat%20websiteAppSales%20ini%20Mohon%20info%20lebih%20lanjut');
+                }else{
+                    $notif_error = "Kode Referall yang anda masukkan salah.";
+                }
+            }else{
+                $querypenjualan = mysqli_query($conn, "INSERT INTO data_penjualan (nama_customer) VALUES('$username')");
+                header('Location: https://api.whatsapp.com/send?phone=6282189000701&text=Hai%20Admin%20GALERIIDE%20Saya%20tertarik%20untuk%20membuat%20websiteAppSales%20ini%20Mohon%20info%20lebih%20lanjut');
+            }
         }
     }
 }
@@ -1190,6 +1203,7 @@ if(isset($_POST['aksihapuskategori'])){
 }
 
 if(isset($_POST['aksipenjualan'])){
+    $marketing = $_POST['marketing'];
     $username = $_POST['username'];
     $tgl = $_POST['tgl'];
     $pembayaran = $_POST['pembayaran'];
@@ -1198,14 +1212,15 @@ if(isset($_POST['aksipenjualan'])){
     $bonus = $_POST['bonus'];
     $sisa = 300000 - $bonus;
     if($pembayaran == "credit"){
-        $querysave = mysqli_query($conn, "INSERT INTO data_penjualan (nama_customer,tgl_daftar,metode_pembayaran,jangka_waktu,status_pembayaran,bonus_penjualan,sisa) VALUES('$username','$tgl','$pembayaran','$jangka','$status','$bonus','$sisa')");
+        $querysave = mysqli_query($conn, "INSERT INTO data_penjualan (nama_marketing,nama_customer,tgl_daftar,metode_pembayaran,jangka_waktu,status_pembayaran,bonus_penjualan,sisa) VALUES('$marketing','$username','$tgl','$pembayaran','$jangka','$status','$bonus','$sisa')");
     }else{
-        $querysave = mysqli_query($conn, "INSERT INTO data_penjualan (nama_customer,tgl_daftar,metode_pembayaran,jangka_waktu,status_pembayaran,bonus_penjualan,sisa) VALUES('$username','$tgl','$pembayaran','No','$status','$bonus','$sisa')");
+        $querysave = mysqli_query($conn, "INSERT INTO data_penjualan (nama_marketing,nama_customer,tgl_daftar,metode_pembayaran,jangka_waktu,status_pembayaran,bonus_penjualan,sisa) VALUES('$marketing','$username','$tgl','$pembayaran','No','$status','$bonus','$sisa')");
     }
 
 }
 
 if(isset($_POST['aksieditsal'])){
+    $marketing = $_POST['marketing'];
     $pembayaran = $_POST['pembayaran'];
     $jangka = $_POST['jangka'];
     $status = $_POST['status'];
@@ -1229,5 +1244,23 @@ if(isset($_POST['hapussales'])){
     $querydel = mysqli_query($conn, "DELETE FROM data_penjualan WHERE id_customer='$id'");
 }
 
+
+if(isset($_POST['aksisimpanmarket'])){
+    $kode = $_POST['kode'];
+    $nama = $_POST['nama'];
+    $query = mysqli_query($conn, "INSERT INTO data_marketing (kode, nama) VALUES('$kode','$nama')");
+}
+
+if(isset($_POST['aksieditmarket'])){
+    $kode = $_POST['kode'];
+    $nama = $_POST['nama'];
+    $id = $_POST['id'];
+    $query = mysqli_query($conn, "UPDATE data_marketing SET kode='$kode',nama='$nama' WHERE id='$id'");
+}
+
+if(isset($_POST['aksihapusmarket'])){
+    $id = $_POST['id'];
+    $query = mysqli_query($conn, "DELETE FROM data_marketing WHERE id='$id'");
+}
 
 ?>
