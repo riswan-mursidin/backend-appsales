@@ -1246,16 +1246,21 @@ if(isset($_POST['hapussales'])){
 
 
 if(isset($_POST['aksisimpanmarket'])){
-    $kode = $_POST['kode'];
+    $data = 'ABCDEFGHIJKLMNOPQRSTU1234567890';
+    $string = '';
+    for($i = 0; $i < 6; $i++) {
+        $pos = rand(0, strlen($data)-1);
+        $string .= $data{$pos};
+    }
+    $kode = $string;
     $nama = $_POST['nama'];
     $query = mysqli_query($conn, "INSERT INTO data_marketing (kode, nama) VALUES('$kode','$nama')");
 }
 
 if(isset($_POST['aksieditmarket'])){
-    $kode = $_POST['kode'];
     $nama = $_POST['nama'];
     $id = $_POST['id'];
-    $query = mysqli_query($conn, "UPDATE data_marketing SET kode='$kode',nama='$nama' WHERE id='$id'");
+    $query = mysqli_query($conn, "UPDATE data_marketing SET nama='$nama' WHERE id='$id'");
 }
 
 if(isset($_POST['aksihapusmarket'])){

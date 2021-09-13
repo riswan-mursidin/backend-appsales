@@ -53,10 +53,6 @@ function showKategori($id){
                                     </div>
                                     <div class="modal-body">
                                         <div class="mb-3">
-                                            <label for="kode" class="form-label">Kode Referal</label>
-                                            <input type="text" name="kode" id="kode" class="form-control">
-                                        </div>
-                                        <div class="mb-3">
                                             <label for="nama" class="form-label">Nama Marketing</label>
                                             <input type="text" name="nama" id="nama" class="form-control">
                                         </div>
@@ -115,7 +111,7 @@ function showKategori($id){
                                     <div class="modal-body">
                                         <div class="mb-3">
                                             <label for="kode" class="form-label">Kode Referal</label>
-                                            <input type="text" name="kode" id="kode" class="form-control" value="<?= $rowmarket['kode'] ?>">
+                                            <input type="text" readonly id="kode" class="form-control" value="<?= $rowmarket['kode'] ?>">
                                         </div>
                                         <div class="mb-3">
                                             <label for="nama" class="form-label">Nama Marketing</label>
