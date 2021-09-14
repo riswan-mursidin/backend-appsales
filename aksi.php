@@ -1219,35 +1219,55 @@ if(isset($_POST['aksipenjualan'])){
     }else{
         $querysave = mysqli_query($conn, "INSERT INTO data_penjualan (nama_marketing,nama_customer,tgl_daftar,metode_pembayaran,terbayar,sisa_terbayar,tgl_bayar,jangka_waktu,status_pembayaran,bonus_penjualan,sisa) VALUES('$marketing','$username','$tgl','$pembayaran','$terbayar','$sisabayar','$tgl_bayar','No','$status','$bonus','$sisa')");
     }
+    if($querysave){
+        $storypembayaran = mysqli_query($conn, "INSERT INTO story_cicilan (username,nominal,tgl_transaksi) VALUES ('$username','$terbayar','$tgl_bayar')");
+    }
 
 }
 
 if(isset($_POST['aksieditsal'])){
+    $username = $_POST['username'];
     $marketing = $_POST['marketing'];
     $pembayaran = $_POST['pembayaran'];
     $jangka = $_POST['jangka'];
     $terbayar = $_POST['terbayar'];
-    $sisabayar = 1500000 - $terbayar;
     $tgl_bayar = $_POST['tgl_bayar'];
     $status = $_POST['status'];
     $bonus = $_POST['bonus'];
     $sisa = 300000 - $bonus;
-    if($pembayaran == "credit"){
-        $querysave = mysqli_query($conn, "UPDATE data_penjualan SET metode_pembayaran='$pembayaran',terbayar='$terbayar',sisa_terbayar='$sisabayar',tgl_bayar='$tgl_bayar',jangka_waktu='$jangka',status_pembayaran='$status',bonus_penjualan='$bonus',sisa='$sisa' WHERE id_customer='$id' ");
+    $querytransaksi = mysqli_query($conn, "SELECT nominal FROM story_cicilan WHERE username='$username'");
+    $jumlah = 0;
+    while($rowtf = mysqli_fetch_assoc($querytransaksi)){
+        $jumlah += $rowtf['nominal'];
+    }
+    if(isset($_POST['tf'])){
+        $terbayardb = $terbayar + $jumlah;
+        $sisabayar = 1500000 - $terbayardb;
+        if($pembayaran == "credit"){
+            $querysave = mysqli_query($conn, "UPDATE data_penjualan SET metode_pembayaran='$pembayaran',terbayar='$terbayardb',sisa_terbayar='$sisabayar',tgl_bayar='$tgl_bayar',jangka_waktu='$jangka',status_pembayaran='$status',bonus_penjualan='$bonus',sisa='$sisa' WHERE id_customer='$id' ");
+        }else{
+            $querysave = mysqli_query($conn, "UPDATE data_penjualan SET metode_pembayaran='$pembayaran',terbayar='$terbayardb',sisa_terbayar='$sisabayar',tgl_bayar='$tgl_bayar',jangka_waktu='No',status_pembayaran='$status',bonus_penjualan='$bonus',sisa='$sisa' WHERE id_customer='$id' ");
+        }
         if($querysave){
-            echo "<script type='text/javascript'>document.location.href = 'data-penjualan';</script>";
+            $storypembayaran = mysqli_query($conn, "INSERT INTO story_cicilan (username,nominal,tgl_transaksi) VALUES ('$username','$terbayar','$tgl_bayar')");
         }
     }else{
-        $querysave = mysqli_query($conn, "UPDATE data_penjualan SET metode_pembayaran='$pembayaran',terbayar='$terbayar',sisa_terbayar='$sisabayar',tgl_bayar='$tgl_bayar',jangka_waktu='No',status_pembayaran='$status',bonus_penjualan='$bonus',sisa='$sisa' WHERE id_customer='$id' ");
-        if($querysave){
-            echo "<script type='text/javascript'>document.location.href = 'data-penjualan';</script>";
+        if($pembayaran == "credit"){
+            $querysave = mysqli_query($conn, "UPDATE data_penjualan SET metode_pembayaran='$pembayaran',jangka_waktu='$jangka',status_pembayaran='$status',bonus_penjualan='$bonus',sisa='$sisa' WHERE id_customer='$id' ");
+        }else{
+            $querysave = mysqli_query($conn, "UPDATE data_penjualan SET metode_pembayaran='$pembayaran',jangka_waktu='No',status_pembayaran='$status',bonus_penjualan='$bonus',sisa='$sisa' WHERE id_customer='$id' ");
         }
     }
+    echo "<script type='text/javascript'>document.location.href = 'data-penjualan';</script>";
 }
 
 if(isset($_POST['hapussales'])){
     $id = $_POST['id'];
     $querydel = mysqli_query($conn, "DELETE FROM data_penjualan WHERE id_customer='$id'");
+    if($querydel){
+        $username = $_POST['username'];
+        $del = mysqli_query($conn, "DELETE FROM story_cicilan WHERE username='$username'");
+    }
 }
 
 

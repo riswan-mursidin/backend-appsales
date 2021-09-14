@@ -89,13 +89,13 @@ if($rowakun['status'] < 2){
                                             <label for="" class="form-label">Terbayar</label>
                                                 <div class="input-group col-12 mb-3">
                                                     <span class="input-group-text" >Rp.</span>
-                                                    <input type="text" name="terbayar" class="form-control" onkeyup="bayarSisa(this.value)">
+                                                    <input type="text" required name="terbayar" class="form-control" onkeyup="bayarSisa(this.value)">
                                                 </div>
                                         </div>
                                         <p style="font-size: 10px;" id="sisabayar"></p>
                                         <div class="mb-3">
                                             <label for="" class="form-label">Transaksi Terakhir</label>
-                                            <input type="date" name="tgl_bayar" class="form-control">
+                                            <input type="date" name="tgl_bayar" required class="form-control">
                                         </div>
                                         <div class="mb-3">
                                             <label for="bonus" class="form-label">Bonus</label>
@@ -145,9 +145,9 @@ if($rowakun['status'] < 2){
                                     <td><?= ucfirst($row['nama_marketing']) ?></td>
                                     <td><?= ucfirst($row['nama_customer']) ?></td>
                                     <td><?= $row['tgl_daftar'] ?></td>
-                                    <td><?= ucfirst($row['metode_pembayaran']) ?></td>
-                                    
-                                    
+                                    <td>
+                                        <?= ucfirst($row['metode_pembayaran']) ?>
+                                    </td>
                                     <td>
                                         <?php if($row['status_pembayaran']==2){ ?>
                                             <div class="badge bg-danger" style="width: 7rem;border-radius:3px">
@@ -181,7 +181,7 @@ if($rowakun['status'] < 2){
             </div>
         </section>
                                         <?php  
-                                        $queryadmin = "SELECT * FROM data_penjualan";
+                                        $queryadmin = "SELECT * FROM data_penjualan ORDER BY tgl_daftar DESC";
                                         $resultadmin = mysqli_query($conn, $queryadmin);
                                         while($row = mysqli_fetch_assoc($resultadmin)){
                                         ?>
@@ -227,6 +227,7 @@ if($rowakun['status'] < 2){
                                                             <label for="" class="form-label">Transaksi Terakhir</label>
                                                             <input type="text" readonly value="<?= $row['tgl_bayar'] ?>" class="form-control">
                                                         </div>
+                                                        <p style="font-size: 15px;">klik <a data-bs-target="#transaksi<?= $row['id_customer'] ?>" data-bs-toggle="modal" href="">disini untuk melihat riwayat transaksi!</a></p>
                                                         <div class="mb-3">
                                                             <label for="" class="form-label">Jangka Waktu</label>
                                                             <input type="text" readonly value="<?= $row['jangka_waktu'] ?>" class="form-control">
@@ -251,6 +252,31 @@ if($rowakun['status'] < 2){
                                             </div>
                                         </div>
                                         <!-- Modal Hapus-->
+                                        <div class="modal fade" id="transaksi<?= $row['id_customer'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Details Transaksi!</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <?php  
+                                                        $user = $row['nama_customer'];
+                                                        $querystory = mysqli_query($conn, "SELECT * FROM story_cicilan WHERE username='$user' ORDER BY tgl_transaksi DESC LIMIT 12");
+                                                        while($rowstory = mysqli_fetch_assoc($querystory)){
+                                                        ?>
+                                                        <p> Tanggal : <?= $rowstory['tgl_transaksi'] ?> </p>
+                                                        <p> Nominal : Rp. <?= number_format($rowstory['nominal'],0,",",".") ?> </p>
+                                                        <hr>
+                                                        <?php } ?>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">close</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Modal Hapus-->
                                         <div class="modal fade" id="hapuspelanggan<?= $row['id_customer'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
@@ -263,6 +289,7 @@ if($rowakun['status'] < 2){
                                                     </div>
                                                     <form method="post" action="" class="modal-footer">
                                                         <input type="hidden" name="id" value="<?= $row['id_customer'] ?>">
+                                                        <input type="hidden" name="username" value="<?= $row['nama_customer'] ?>">
                                                         <button type="submit" name="hapussales" class="btn btn-danger btn-save">Ya</button>
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                                                     </form>

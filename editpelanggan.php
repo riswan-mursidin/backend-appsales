@@ -34,7 +34,7 @@ if($rowakun['status'] != 2){
                 </div>
                 <div class="col-12 mb-3">
                     <label for="" class="form-label">Username</label>
-                    <input type="text" name="" id="" readonly value="<?= ucfirst($row['nama_customer']) ?>" class="form-control">
+                    <input type="text" name="username" id="" readonly value="<?= ucfirst($row['nama_customer']) ?>" class="form-control">
                 </div>
                 <div class="col-12 mb-3">
                     <label for="tgl" class="form-label">Tanggal Daftar</label>
@@ -83,17 +83,25 @@ if($rowakun['status'] != 2){
                         ?>
                     </select>
                 </div>
-                <div class="mb-3">
-                    <label for="" class="form-label">Terbayar</label>
+                <div class="col-12 form-check ">
+                    <input class="form-check-input" name="tf"  type="checkbox"  onclick="showTr()" id="tf">
+                    <label class="form-check-label" for="tf" style="font-size: 15px;">
+                        Jika terjadi transaksi Ceklis disini.
+                    </label>
+                </div>
+                <div id="transaksi" style="display: none;">
+                    <div class="col-12 mb-3">
+                    <label for="" class="form-label">Nominal Pembayaran</label>
                         <div class="input-group col-12 mb-3">
                             <span class="input-group-text" >Rp.</span>
-                            <input type="text" name="terbayar" value="<?= $row['terbayar'] ?>" class="form-control" onkeyup="bayarSisa(this.value)">
+                            <input type="number" name="terbayar" id="terbayar" value="0" class="form-control" onkeyup="bayarSisa(this.value)">
                         </div>
-                </div>
-                <p style="font-size: 10px;" id="sisabayar">*sisa pembayaran Rp.<?= $row['sisa_terbayar'] ?></p>
-                <div class="mb-3">
-                    <label for="" class="form-label">Transaksi Terakhir</label>
-                    <input type="date" name="tgl_bayar" class="form-control" value="<?= $row['tgl_bayar'] ?>">
+                        
+                    </div>
+                    <div class="col-12 mb-3">
+                        <label for="" class="form-label">Transaksi Terakhir</label>
+                        <input type="date" name="tgl_bayar" class="form-control" value="<?= $row['tgl_bayar'] ?>">
+                    </div>
                 </div>
                 <div class="col-12 mb-3">
                     <label for="bonus" class="form-label">Bonus</label>
@@ -132,17 +140,21 @@ if($rowakun['status'] != 2){
 
         </script>
         <script>
+            function showTr() {
+                var checkBox = document.getElementById("tf");
+                var dvPassport = document.getElementById("transaksi");
+                if(checkBox.checked == true){
+                    dvPassport.style.display = "block";
+                }else{
+                    dvPassport.style.display = "none";
+                }
+            }
+        </script>
+        <script>
             function showSisa(str){
                 var bonus = parseInt(str);
                 var sisa = 300000 - bonus;
                 document.getElementById("sisa").innerHTML = "*Bonus sisa Rp." + sisa;
-            }
-        </script>
-         <script>
-            function bayarSisa(str){
-                var bayar = parseInt(str);
-                var sisa = 1500000 - bayar;
-                document.getElementById("sisabayar").innerHTML = "*sisa pembayaran Rp." + sisa;
             }
         </script>
         <!-- Option 1: Bootstrap Bundle with Popper -->
