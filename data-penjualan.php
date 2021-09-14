@@ -163,7 +163,7 @@ if($rowakun['status'] < 2){
                                     <!-- <td>Rp.<?= number_format($row['bonus_penjualan'],0,",",".") ?></td>
                                     <td>Rp.<?= number_format($row['sisa'],0,",",".") ?></td> -->
                                     <?php if($rowakun['status'] == 2){ ?>
-                                    <td>
+                                    <td style="display: flex;">
                                         <a href="editpelanggan?id=<?= $row['id_customer'] ?>" ><span class="material-icons">edit</span></a>
                                         <a href="#infopelanggan<?= $row['id_customer'] ?>" data-bs-toggle="modal"><span class="material-icons">info</span></a>
                                         <a href="#hapuspelanggan<?= $row['id_customer'] ?>" data-bs-toggle="modal"><span class="material-icons">delete</span></a>
