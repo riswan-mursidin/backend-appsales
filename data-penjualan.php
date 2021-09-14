@@ -213,14 +213,14 @@ if($rowakun['status'] < 2){
                                                             <label for="" class="form-label">Terbayar</label>
                                                                 <div class="input-group col-12 mb-3">
                                                                     <span class="input-group-text" >Rp.</span>
-                                                                    <input type="text" readonly value="<?= $row['terbayar'] ?>" class="form-control">
+                                                                    <input type="text" readonly value="<?= number_format($row['terbayar'],0,",",".") ?>" class="form-control">
                                                                 </div>
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="" class="form-label">Sisa Pembayaran</label>
                                                                 <div class="input-group col-12 mb-3">
                                                                     <span class="input-group-text" >Rp.</span>
-                                                                    <input type="text" readonly value="<?= $row['sisa_terbayar'] ?>" class="form-control">
+                                                                    <input type="text" readonly value="<?= number_format($row['sisa_terbayar'],0,",",".") ?>" class="form-control">
                                                                 </div>
                                                         </div>
                                                         <div class="mb-3">
@@ -233,11 +233,14 @@ if($rowakun['status'] < 2){
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="" class="form-label">Status Pembayaran</label>
-                                                            <input type="text" readonly value="<?= $hasil = $row['status_pembayaran'] == 2 ? "BELUM LUSNAS" : "LUNAS" ?>" class="form-control">
+                                                            <input type="text" readonly value="<?= $hasil = $row['status_pembayaran'] == 2 ? "BELUM LUNAS" : "LUNAS" ?>" class="form-control">
                                                         </div>
                                                         <div class="mb-3">
-                                                            <label for="" class="form-label">Bonus Penjualan (IDR)</label>
-                                                            <input type="text" readonly value="<?=  number_format($row['bonus_penjualan'],0,",",".") ?>" class="form-control">
+                                                            <label for="" class="form-label">Bonus Penjualan</label>
+                                                            <div class="input-group col-12 mb-3">
+                                                                <span class="input-group-text" >Rp.</span>
+                                                                <input type="text" readonly value="<?=  number_format($row['bonus_penjualan'],0,",",".") ?>" class="form-control">
+                                                            </div>
                                                             <p style="font-size: 10px;">*sisa bonus anda Rp. <?= number_format($row['sisa'],0,",",".") ?></p>
                                                         </div>
                                                     </div>
