@@ -53,6 +53,20 @@ if($rowakun['status'] != 2){
                         ?>
                     </select>
                 </div>
+                <div class="col-12 mb-3" id="jangka" style="display: <?=  $hidden = $row['metode_pembayaran'] == "cash" ? "none" : "block"; ?>;">
+                    <label for="jangka" class="form-label">Jangka Waktu</label>
+                    <select name="jangka" id="jangka" class="form-select">
+                        <option value="" selected="selected">PILIH JANGKA WAKTU</option>
+                        <?php  
+                        $jangka = array("3 Bulan","6 Bulan","12 Bulan");
+                        for($r=0;$r<count($jangka);$r++){
+                            $selected = $jangka[$r] === $row['jangka_waktu'] ? "selected='selected'" : "";
+                            echo '<option value="'.$jangka[$r].'"'.$selected.'>'.$jangka[$r].'</option>';
+                        }
+                        ?>
+                    </select>
+                </div>
+
                 <div class="col-12 mb-3">
                     <label for="status" class="form-label" >Status Pembayaran</label>
                     <select name="status" id="status" class="form-select" required >
@@ -69,19 +83,17 @@ if($rowakun['status'] != 2){
                         ?>
                     </select>
                 </div>
-                
-                <div class="col-12 mb-3" id="jangka" style="display: <?=  $hidden = $row['metode_pembayaran'] == "cash" ? "none" : "block"; ?>;">
-                    <label for="jangka" class="form-label">Jangka Waktu</label>
-                    <select name="jangka" id="jangka" class="form-select">
-                        <option value="" selected="selected">PILIH JANGKA WAKTU</option>
-                        <?php  
-                        $jangka = array("3 Bulan","6 Bulan","12 Bulan");
-                        for($r=0;$r<count($jangka);$r++){
-                            $selected = $jangka[$r] === $row['jangka_waktu'] ? "selected='selected'" : "";
-                            echo '<option value="'.$jangka[$r].'"'.$selected.'>'.$jangka[$r].'</option>';
-                        }
-                        ?>
-                    </select>
+                <div class="mb-3">
+                    <label for="" class="form-label">Terbayar</label>
+                        <div class="input-group col-12 mb-3">
+                            <span class="input-group-text" >Rp.</span>
+                            <input type="text" name="terbayar" value="<?= $row['terbayar'] ?>" class="form-control" onkeyup="bayarSisa(this.value)">
+                        </div>
+                </div>
+                <p style="font-size: 10px;" id="sisabayar">*sisa pembayaran Rp.<?= $row['sisa_terbayar'] ?></p>
+                <div class="mb-3">
+                    <label for="" class="form-label">Transaksi Terakhir</label>
+                    <input type="date" name="tgl_bayar" class="form-control" value="<?= $row['tgl_bayar'] ?>">
                 </div>
                 <div class="col-12 mb-3">
                     <label for="bonus" class="form-label">Bonus</label>
@@ -124,6 +136,13 @@ if($rowakun['status'] != 2){
                 var bonus = parseInt(str);
                 var sisa = 300000 - bonus;
                 document.getElementById("sisa").innerHTML = "*Bonus sisa Rp." + sisa;
+            }
+        </script>
+         <script>
+            function bayarSisa(str){
+                var bayar = parseInt(str);
+                var sisa = 1500000 - bayar;
+                document.getElementById("sisabayar").innerHTML = "*sisa pembayaran Rp." + sisa;
             }
         </script>
         <!-- Option 1: Bootstrap Bundle with Popper -->

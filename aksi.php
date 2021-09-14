@@ -1207,14 +1207,17 @@ if(isset($_POST['aksipenjualan'])){
     $username = $_POST['username'];
     $tgl = $_POST['tgl'];
     $pembayaran = $_POST['pembayaran'];
+    $terbayar = $_POST['terbayar'];
+    $sisabayar = 1500000 - $terbayar;
+    $tgl_bayar = $_POST['tgl_bayar'];
     $jangka = $_POST['jangka'];
     $status = $_POST['status'];
     $bonus = $_POST['bonus'];
     $sisa = 300000 - $bonus;
     if($pembayaran == "credit"){
-        $querysave = mysqli_query($conn, "INSERT INTO data_penjualan (nama_marketing,nama_customer,tgl_daftar,metode_pembayaran,jangka_waktu,status_pembayaran,bonus_penjualan,sisa) VALUES('$marketing','$username','$tgl','$pembayaran','$jangka','$status','$bonus','$sisa')");
+        $querysave = mysqli_query($conn, "INSERT INTO data_penjualan (nama_marketing,nama_customer,tgl_daftar,metode_pembayaran,terbayar,sisa_terbayar,tgl_bayar,jangka_waktu,status_pembayaran,bonus_penjualan,sisa) VALUES('$marketing','$username','$tgl','$pembayaran','$terbayar','$sisabayar','$tgl_bayar','$jangka','$status','$bonus','$sisa')");
     }else{
-        $querysave = mysqli_query($conn, "INSERT INTO data_penjualan (nama_marketing,nama_customer,tgl_daftar,metode_pembayaran,jangka_waktu,status_pembayaran,bonus_penjualan,sisa) VALUES('$marketing','$username','$tgl','$pembayaran','No','$status','$bonus','$sisa')");
+        $querysave = mysqli_query($conn, "INSERT INTO data_penjualan (nama_marketing,nama_customer,tgl_daftar,metode_pembayaran,terbayar,sisa_terbayar,tgl_bayar,jangka_waktu,status_pembayaran,bonus_penjualan,sisa) VALUES('$marketing','$username','$tgl','$pembayaran','$terbayar','$sisabayar','$tgl_bayar','No','$status','$bonus','$sisa')");
     }
 
 }
@@ -1223,16 +1226,19 @@ if(isset($_POST['aksieditsal'])){
     $marketing = $_POST['marketing'];
     $pembayaran = $_POST['pembayaran'];
     $jangka = $_POST['jangka'];
+    $terbayar = $_POST['terbayar'];
+    $sisabayar = 1500000 - $terbayar;
+    $tgl_bayar = $_POST['tgl_bayar'];
     $status = $_POST['status'];
     $bonus = $_POST['bonus'];
     $sisa = 300000 - $bonus;
     if($pembayaran == "credit"){
-        $querysave = mysqli_query($conn, "UPDATE data_penjualan SET metode_pembayaran='$pembayaran',jangka_waktu='$jangka',status_pembayaran='$status',bonus_penjualan='$bonus',sisa='$sisa' WHERE id_customer='$id' ");
+        $querysave = mysqli_query($conn, "UPDATE data_penjualan SET metode_pembayaran='$pembayaran',terbayar='$terbayar',sisa_terbayar='$sisabayar',tgl_bayar='$tgl_bayar',jangka_waktu='$jangka',status_pembayaran='$status',bonus_penjualan='$bonus',sisa='$sisa' WHERE id_customer='$id' ");
         if($querysave){
             echo "<script type='text/javascript'>document.location.href = 'data-penjualan';</script>";
         }
     }else{
-        $querysave = mysqli_query($conn, "UPDATE data_penjualan SET metode_pembayaran='$pembayaran',jangka_waktu='No',status_pembayaran='$status',bonus_penjualan='$bonus',sisa='$sisa' WHERE id_customer='$id' ");
+        $querysave = mysqli_query($conn, "UPDATE data_penjualan SET metode_pembayaran='$pembayaran',terbayar='$terbayar',sisa_terbayar='$sisabayar',tgl_bayar='$tgl_bayar',jangka_waktu='No',status_pembayaran='$status',bonus_penjualan='$bonus',sisa='$sisa' WHERE id_customer='$id' ");
         if($querysave){
             echo "<script type='text/javascript'>document.location.href = 'data-penjualan';</script>";
         }

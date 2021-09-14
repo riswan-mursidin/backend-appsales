@@ -58,7 +58,7 @@ if($rowakun['status'] < 2){
                                         </div>
                                         <div class="mb-3">
                                             <label for="tgl" class="form-label">Tanggal Daftar</label>
-                                            <input type="date" name="tgl" id="tgl" class="form-control">
+                                            <input type="date" name="tgl" id="tgl"  class="form-control">
                                         </div>
                                         <div class="mb-3">
                                             <label for="pembayaran" class="form-label" >Metode Pembayaran</label>
@@ -66,14 +66,6 @@ if($rowakun['status'] < 2){
                                                 <option value="" hidden>PILIH METODE</option>
                                                 <option value="cash">Cash</option>
                                                 <option value="credit">Credit</option>
-                                            </select>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="status" class="form-label" >Status Pembayaran</label>
-                                            <select name="status" id="status" class="form-select" required disabled>
-                                                <option value="" hidden>PILIH STATUS</option>
-                                                <option value="1">LUNAS</option>
-                                                <option value="2" id="nas">BELUM LUNAS</option>
                                             </select>
                                         </div>
                                         <div class="mb-3" id="jangka" style="display: none;">
@@ -84,6 +76,26 @@ if($rowakun['status'] < 2){
                                                 <option value="6 Bulan">6 Bulan</option>
                                                 <option value="12 Bulan">12 Bulan</option>
                                             </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="status" class="form-label" >Status Pembayaran</label>
+                                            <select name="status" id="status" class="form-select" required disabled>
+                                                <option value="" hidden>PILIH STATUS</option>
+                                                <option value="1">LUNAS</option>
+                                                <option value="2">BELUM LUNAS</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="" class="form-label">Terbayar</label>
+                                                <div class="input-group col-12 mb-3">
+                                                    <span class="input-group-text" >Rp.</span>
+                                                    <input type="text" name="terbayar" class="form-control" onkeyup="bayarSisa(this.value)">
+                                                </div>
+                                        </div>
+                                        <p style="font-size: 10px;" id="sisabayar"></p>
+                                        <div class="mb-3">
+                                            <label for="" class="form-label">Transaksi Terakhir</label>
+                                            <input type="date" name="tgl_bayar" class="form-control">
                                         </div>
                                         <div class="mb-3">
                                             <label for="bonus" class="form-label">Bonus</label>
@@ -103,19 +115,20 @@ if($rowakun['status'] < 2){
                         </div>
                     </div>
                     <?php } ?>
-                    <div class="col-12 table-responsive">
+                    <div class="table-responsive">
                         <table class="table table-striped table-hover " style="font-size: small" >
                             <thead>
                                 <tr>
-                                    <th scope="col">#</th>
                                     <th scope="col">MARKETING</th>
                                     <th scope="col">NAMA</th>
                                     <th scope="col">TANGGAL</th>
                                     <th scope="col">PEMBAYARAN</th>
-                                    <th scope="col">WAKTU</th>
+                                    <!-- <th scope="col">TAGIHAN</th>
+                                    <th scope="col">SISA TAGIHAN</th> -->
+                                    <!-- <th scope="col">WAKTU</th> -->
                                     <th scope="col">STATUS</th>
-                                    <th scope="col">BONUS</th>
-                                    <th scope="col">SISA</th>
+                                    <!-- <th scope="col">BONUS</th>
+                                    <th scope="col">SISA</th> -->
                                     <?php if($rowakun['status'] == 2){ ?>
                                     <th scope="col">AKSI</th>
                                     <?php } ?>
@@ -124,17 +137,16 @@ if($rowakun['status'] < 2){
                             <tbody>
                             <?php  
                             $queryadmin = "SELECT * FROM data_penjualan ORDER BY tgl_daftar DESC";
-                            $j = 0;
                             $resultadmin = mysqli_query($conn, $queryadmin);
                             while($row = mysqli_fetch_assoc($resultadmin)){
                             ?>
                                 <tr>
-                                    <td><?= ++$j ?></td>
+                                    
                                     <td><?= ucfirst($row['nama_marketing']) ?></td>
                                     <td><?= ucfirst($row['nama_customer']) ?></td>
                                     <td><?= $row['tgl_daftar'] ?></td>
                                     <td><?= ucfirst($row['metode_pembayaran']) ?></td>
-                                    <td><?= $row['jangka_waktu'] ?></td>
+                                    
                                     
                                     <td>
                                         <?php if($row['status_pembayaran']==2){ ?>
@@ -148,11 +160,12 @@ if($rowakun['status'] < 2){
                                         <?php } ?>
                                     </td>
                                     
-                                    <td>Rp.<?= number_format($row['bonus_penjualan'],0,",",".") ?></td>
-                                    <td>Rp.<?= number_format($row['sisa'],0,",",".") ?></td>
+                                    <!-- <td>Rp.<?= number_format($row['bonus_penjualan'],0,",",".") ?></td>
+                                    <td>Rp.<?= number_format($row['sisa'],0,",",".") ?></td> -->
                                     <?php if($rowakun['status'] == 2){ ?>
                                     <td>
                                         <a href="editpelanggan?id=<?= $row['id_customer'] ?>" ><span class="material-icons">edit</span></a>
+                                        <a href="#infopelanggan<?= $row['id_customer'] ?>" data-bs-toggle="modal"><span class="material-icons">info</span></a>
                                         <a href="#hapuspelanggan<?= $row['id_customer'] ?>" data-bs-toggle="modal"><span class="material-icons">delete</span></a>
                                     </td>
                                     <?php } ?>
@@ -172,16 +185,78 @@ if($rowakun['status'] < 2){
                                         $resultadmin = mysqli_query($conn, $queryadmin);
                                         while($row = mysqli_fetch_assoc($resultadmin)){
                                         ?>
+                                        <div class="modal fade" id="infopelanggan<?= $row['id_customer'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-xl modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Detail Customer</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="mb-3">
+                                                            <label for="" class="form-label">Nama Marketing</label>
+                                                            <input type="text" readonly value="<?= ucfirst($row['nama_marketing']) ?>" class="form-control">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="" class="form-label">Nama Customer</label>
+                                                            <input type="text" readonly value="<?= ucfirst($row['nama_customer']) ?>" class="form-control">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="" class="form-label">Tanggal Berlangganan</label>
+                                                            <input type="text" readonly value="<?= $row['tgl_daftar'] ?>" class="form-control">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="" class="form-label">Metode Pembayaran</label>
+                                                            <input type="text" readonly value="<?= ucfirst($row['metode_pembayaran']) ?>" class="form-control">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="" class="form-label">Terbayar</label>
+                                                                <div class="input-group col-12 mb-3">
+                                                                    <span class="input-group-text" >Rp.</span>
+                                                                    <input type="text" readonly value="<?= $row['terbayar'] ?>" class="form-control">
+                                                                </div>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="" class="form-label">Sisa Pembayaran</label>
+                                                                <div class="input-group col-12 mb-3">
+                                                                    <span class="input-group-text" >Rp.</span>
+                                                                    <input type="text" readonly value="<?= $row['sisa_terbayar'] ?>" class="form-control">
+                                                                </div>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="" class="form-label">Transaksi Terakhir</label>
+                                                            <input type="text" readonly value="<?= $row['tgl_bayar'] ?>" class="form-control">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="" class="form-label">Jangka Waktu</label>
+                                                            <input type="text" readonly value="<?= $row['jangka_waktu'] ?>" class="form-control">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="" class="form-label">Status Pembayaran</label>
+                                                            <input type="text" readonly value="<?= $hasil = $row['status_pembayaran'] == 2 ? "BELUM LUSNAS" : "LUNAS" ?>" class="form-control">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="" class="form-label">Bonus Penjualan (IDR)</label>
+                                                            <input type="text" readonly value="<?=  number_format($row['bonus_penjualan'],0,",",".") ?>" class="form-control">
+                                                            <p style="font-size: 10px;">*sisa bonus anda Rp. <?= number_format($row['sisa'],0,",",".") ?></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <!-- Modal Hapus-->
                                         <div class="modal fade" id="hapuspelanggan<?= $row['id_customer'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Menghapus Sales!</h5>
+                                                        <h5 class="modal-title" id="exampleModalLabel">Menghapus Customer!</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        Yakin ingin menghapus Sales Atas Nama <?= ucfirst($row['nama_customer']) ?> ?<br>
+                                                        Yakin ingin menghapus Customer Atas Nama <?= ucfirst($row['nama_customer']) ?> ?<br>
                                                     </div>
                                                     <form method="post" action="" class="modal-footer">
                                                         <input type="hidden" name="id" value="<?= $row['id_customer'] ?>">
@@ -201,10 +276,8 @@ if($rowakun['status'] < 2){
                 if(str == "credit"){
                     document.getElementById("jangka").style.display = "block";
                     document.getElementById("bonus").value = "150000";
-                    document.getElementById("nas").hidden = false;
                     document.getElementById("sisa").innerHTML = "*Bonus sisa Rp.150000";
                 }else{
-                    document.getElementById("nas").hidden = true;
                     document.getElementById("jangka").style.display = "none";
                     document.getElementById("bonus").value = "300000";
                     document.getElementById("sisa").innerHTML = "*Bonus sisa Rp.0";
@@ -218,6 +291,13 @@ if($rowakun['status'] < 2){
                 var bonus = parseInt(str);
                 var sisa = 300000 - bonus;
                 document.getElementById("sisa").innerHTML = "*Bonus sisa Rp." + sisa;
+            }
+        </script>
+        <script>
+            function bayarSisa(str){
+                var bayar = parseInt(str);
+                var sisa = 1500000 - bayar;
+                document.getElementById("sisabayar").innerHTML = "*sisa pembayaran Rp." + sisa;
             }
         </script>
         <!-- Option 1: Bootstrap Bundle with Popper -->
