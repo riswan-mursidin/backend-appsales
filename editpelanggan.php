@@ -146,7 +146,7 @@ if($rowakun['status'] != 2){
             xhttp.onload = function() {
                 document.getElementById("tabel-datakredit").innerHTML = this.responseText;
             }
-            xhttp.open("GET", "kredit?jangka=<?= $row['jangka_waktu'] ?>&tgl=<?= $row['tgl_daftar'] ?>&username=<?= $row['nama_customer'] ?>");
+            xhttp.open("GET", "kredit.php?jangka=<?= $row['jangka_waktu'] ?>&tgl=<?= $row['tgl_daftar'] ?>&username=<?= $row['nama_customer'] ?>");
             xhttp.send();
         });
     </script>
@@ -160,7 +160,7 @@ if($rowakun['status'] != 2){
             xhttp.onload = function() {
                 document.getElementById("tabel-datakredit").innerHTML = this.responseText;
             }
-            xhttp.open("GET", "kredit?jangka="+str+"&tgl=<?= $row['tgl_daftar'] ?>&username=<?= $row['nama_customer'] ?>");
+            xhttp.open("GET", "kredit.php?jangka="+str+"&tgl=<?= $row['tgl_daftar'] ?>&username=<?= $row['nama_customer'] ?>");
             xhttp.send();
         }
         

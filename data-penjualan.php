@@ -315,7 +315,7 @@ if($rowakun['status'] < 2){
             xhttp.onload = function() {
                 document.getElementById("tabel-datakredit").innerHTML = this.responseText;
             }
-            xhttp.open("GET", "kredit_input?jangka="+str+"&tgl=<?= date("Y-m-d") ?>");
+            xhttp.open("GET", "kredit_input.php?jangka="+str+"&tgl=<?= date("Y-m-d") ?>");
             xhttp.send();
         }
         
