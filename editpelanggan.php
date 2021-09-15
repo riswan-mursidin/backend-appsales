@@ -37,7 +37,7 @@ if($rowakun['status'] != 2){
                             <option value="" selected>Pilih Marketing</option>
                             <?php  
                             $queryer = mysqli_query($conn, "SELECT * FROM data_marketing");
-                            while($rower = mysqli_fetch_assoc($query)){
+                            while($rower = mysqli_fetch_assoc($queryer)){
                             ?>
                             <option value="<?= $rower['nama'] ?>"><?= ucfirst($rower['nama']) ?></option>
                             <?php } ?>
