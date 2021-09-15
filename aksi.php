@@ -1204,8 +1204,8 @@ if(isset($_POST['aksihapuskategori'])){
 
 if(isset($_POST['aksipenjualan'])){
     $marketing = $_POST['marketing'];
-    $username = $_POST['username'];
-    $tgl = $_POST['tgl'];
+    $username = $_POST['sales'];
+    $tgl = $_POST['tgl_daftar'];
     $pembayaran = $_POST['pembayaran'];
     $terbayar = $_POST['terbayar'];
     $sisabayar = 1500000 - $terbayar;
@@ -1215,7 +1215,7 @@ if(isset($_POST['aksipenjualan'])){
     $bonus = $_POST['bonus'];
     $sisa = 300000 - $bonus;
     if($pembayaran == "credit"){
-        $querysave = mysqli_query($conn, "INSERT INTO data_penjualan (nama_marketing,nama_customer,tgl_daftar,metode_pembayaran,terbayar,sisa_terbayar,tgl_bayar,jangka_waktu,status_pembayaran,bonus_penjualan,sisa) VALUES('$marketing','$username','$tgl','$pembayaran','$terbayar','$sisabayar','$tgl_bayar','$jangka','$status','$bonus','$sisa')");
+        $querysave = mysqli_query($conn, "INSERT INTO data_penjualan (nama_marketing,nama_customer,tgl_daftar,metode_pembayaran,jangka_waktu,status_pembayaran,bonus_penjualan,sisa) VALUES('$marketing','$username','$tgl','$pembayaran','$jangka','$status','$bonus','$sisa')");
     }else{
         $querysave = mysqli_query($conn, "INSERT INTO data_penjualan (nama_marketing,nama_customer,tgl_daftar,metode_pembayaran,terbayar,sisa_terbayar,tgl_bayar,jangka_waktu,status_pembayaran,bonus_penjualan,sisa) VALUES('$marketing','$username','$tgl','$pembayaran','$terbayar','$sisabayar','$tgl_bayar','No','$status','$bonus','$sisa')");
     }
@@ -1243,11 +1243,7 @@ if(isset($_POST['aksieditsal'])){
     if(isset($_POST['tf'])){
         $terbayardb = $terbayar + $jumlah;
         $sisabayar = 1500000 - $terbayardb;
-        if($pembayaran == "credit"){
-            $querysave = mysqli_query($conn, "UPDATE data_penjualan SET metode_pembayaran='$pembayaran',terbayar='$terbayardb',sisa_terbayar='$sisabayar',tgl_bayar='$tgl_bayar',jangka_waktu='$jangka',status_pembayaran='$status',bonus_penjualan='$bonus',sisa='$sisa' WHERE id_customer='$id' ");
-        }else{
-            $querysave = mysqli_query($conn, "UPDATE data_penjualan SET metode_pembayaran='$pembayaran',terbayar='$terbayardb',sisa_terbayar='$sisabayar',tgl_bayar='$tgl_bayar',jangka_waktu='No',status_pembayaran='$status',bonus_penjualan='$bonus',sisa='$sisa' WHERE id_customer='$id' ");
-        }
+        $querysave = mysqli_query($conn, "UPDATE data_penjualan SET metode_pembayaran='$pembayaran',terbayar='$terbayardb',sisa_terbayar='$sisabayar',tgl_bayar='$tgl_bayar',jangka_waktu='No',status_pembayaran='$status',bonus_penjualan='$bonus',sisa='$sisa' WHERE id_customer='$id' ");
         if($querysave){
             $storypembayaran = mysqli_query($conn, "INSERT INTO story_cicilan (username,nominal,tgl_transaksi) VALUES ('$username','$terbayar','$tgl_bayar')");
         }
@@ -1259,6 +1255,13 @@ if(isset($_POST['aksieditsal'])){
         }
     }
     echo "<script type='text/javascript'>document.location.href = 'data-penjualan';</script>";
+}
+
+if(isset($_POST['pembayarankredit'])){
+    $username = $_POST['usernamee'];
+    $tgl = $_POST['tgl'];
+    $nominal = $_POST['nominal'];
+    $query = mysqli_query($conn, "INSERT INTO story_cicilan (username,tgl_transaksi,nominal) VALUES('$username','$tgl','$nominal')");
 }
 
 if(isset($_POST['hapussales'])){

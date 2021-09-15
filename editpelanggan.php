@@ -42,7 +42,8 @@ if($rowakun['status'] != 2){
                 </div>
                 <div class="col-12 mb-3">
                     <label for="pembayaran" class="form-label" >Metode Pembayaran</label>
-                    <select name="pembayaran" id="pembayaran" class="form-select" onchange="showCredit(this.value)" required>
+                    <?= $input = $row['metode_pembayaran'] != "" ? '<input type="hidden" name="pembayaran" value="'.$row['metode_pembayaran'].'">' : "" ?>
+                    <select  id="pembayaran" <?= $read = $row['metode_pembayaran'] != "" ? "disabled" : "name='pembayaran'" ?>  class="form-select" onchange="showCredit(this.value)">
                         <option value="" hidden>PILIH METODE</option>
                         <?php  
                         $metode = array("cash","credit");
@@ -55,7 +56,8 @@ if($rowakun['status'] != 2){
                 </div>
                 <div class="col-12 mb-3" id="jangka" style="display: <?=  $hidden = $row['metode_pembayaran'] == "cash" ? "none" : "block"; ?>;">
                     <label for="jangka" class="form-label">Jangka Waktu</label>
-                    <select name="jangka" id="jangka" class="form-select">
+                    <?= $input2 = $row['jangka_waktu'] != "" ? '<input type="hidden" name="jangka" value="'.$row['jangka_waktu'].'">' : "" ?>
+                    <select <?= $read = $row['jangka_waktu'] != "" ? "disabled" : "name='jangka'" ?> id="jangka" class="form-select" onchange="showKredit(this.value)">
                         <option value="" selected="selected">PILIH JANGKA WAKTU</option>
                         <?php  
                         $jangka = array("3 Bulan","6 Bulan","12 Bulan");
@@ -65,6 +67,9 @@ if($rowakun['status'] != 2){
                         }
                         ?>
                     </select>
+                </div>
+                <div id="tabel-datakredit" class="col-12 col-sm-4">
+                    
                 </div>
 
                 <div class="col-12 mb-3">
@@ -83,9 +88,9 @@ if($rowakun['status'] != 2){
                         ?>
                     </select>
                 </div>
-                <div class="col-12 form-check ">
-                    <input class="form-check-input" name="tf"  type="checkbox"  onclick="showTr()" id="tf">
-                    <label class="form-check-label" for="tf" style="font-size: 15px;">
+                <div class="col-12 form-check " id="tf">
+                    <input class="form-check-input" name="tf"  type="checkbox"  onclick="showTr()" id="tfr">
+                    <label class="form-check-label" for="tfr" id="lab" style="font-size: 15px;">
                         Jika terjadi transaksi Ceklis disini.
                     </label>
                 </div>
@@ -123,14 +128,57 @@ if($rowakun['status'] != 2){
     </section>
     <!-- js select -->
     <script>
+        $(document).ready(function(){
+            if ("<?= $row['metode_pembayaran'] ?>" == "cash") {
+                document.getElementById("tabel-datakredit").innerHTML = "";
+                document.getElementById("tf").style.display = "block";
+                document.getElementById("transaksi").style.display = "block";
+                document.getElementById("tfr").checked = true;
+                document.getElementById("lab").style.display = "block";
+                return;
+            }else if("<?= $row['metode_pembayaran'] ?>" == "credit"){
+                document.getElementById("tf").style.display = "none";
+                document.getElementById("transaksi").style.display = "none";
+                document.getElementById("tfr").checked = false;
+                document.getElementById("lab").style.display = "none";
+            }
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function() {
+                document.getElementById("tabel-datakredit").innerHTML = this.responseText;
+            }
+            xhttp.open("GET", "kredit?jangka=<?= $row['jangka_waktu'] ?>&tgl=<?= $row['tgl_daftar'] ?>&username=<?= $row['nama_customer'] ?>");
+            xhttp.send();
+        });
+    </script>
+    <script>
+        function showKredit(str){
+            if (str == "") {
+                document.getElementById("tabel-datakredit").innerHTML = "";
+                return;
+            }
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function() {
+                document.getElementById("tabel-datakredit").innerHTML = this.responseText;
+            }
+            xhttp.open("GET", "kredit?jangka="+str+"&tgl=<?= $row['tgl_daftar'] ?>&username=<?= $row['nama_customer'] ?>");
+            xhttp.send();
+        }
+        
+    </script>
+    <script>
             function showCredit(str){
                 if(str == "credit"){
                     document.getElementById("jangka").style.display = "block";
                     document.getElementById("bonus").value = "150000";
-                    
+                    document.getElementById("tf").style.display = "none";
+                    document.getElementById("transaksi").style.display = "none";
+                    document.getElementById("lab").style.display = "none";
+                    document.getElementById("tfr").checked = false;
                     document.getElementById("sisa").innerHTML = "*Bonus sisa Rp.150000";
                 }else{
-                
+                    document.getElementById("tabel-datakredit").innerHTML = "";
+                    document.getElementById("tf").style.display = "block";
+                    document.getElementById("lab").style.display = "none";
                     document.getElementById("jangka").style.display = "none";
                     document.getElementById("bonus").value = "300000";
                     document.getElementById("sisa").innerHTML = "*Bonus sisa Rp.0";
@@ -141,7 +189,7 @@ if($rowakun['status'] != 2){
         </script>
         <script>
             function showTr() {
-                var checkBox = document.getElementById("tf");
+                var checkBox = document.getElementById("tfr");
                 var dvPassport = document.getElementById("transaksi");
                 if(checkBox.checked == true){
                     dvPassport.style.display = "block";

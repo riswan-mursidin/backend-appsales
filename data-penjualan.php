@@ -44,7 +44,7 @@ if($rowakun['status'] < 2){
                                         </div>
                                         <div class="mb-3">
                                             <label for="username" class="form-label">Username Yang Terdaftar</label>
-                                            <select name="username" required class="form-select" id="username">
+                                            <select name="sales" required class="form-select" id="username">
                                                 <option value="" selected="selected">PILIH USERNAME</option>
                                                 <?php 
                                                     $queryadminsel = mysqli_query($conn, "SELECT username FROM admin WHERE status='1' ORDER BY username ASC");
@@ -58,7 +58,7 @@ if($rowakun['status'] < 2){
                                         </div>
                                         <div class="mb-3">
                                             <label for="tgl" class="form-label">Tanggal Daftar</label>
-                                            <input type="date" name="tgl" id="tgl"  class="form-control">
+                                            <input type="date" name="tgl_daftar" id="tgl"  class="form-control">
                                         </div>
                                         <div class="mb-3">
                                             <label for="pembayaran" class="form-label" >Metode Pembayaran</label>
@@ -70,13 +70,14 @@ if($rowakun['status'] < 2){
                                         </div>
                                         <div class="mb-3" id="jangka" style="display: none;">
                                             <label for="jangka" class="form-label">Jangka Waktu</label>
-                                            <select name="jangka" id="jangka" class="form-select">
+                                            <select name="jangka" id="jangka" class="form-select" onchange="showKredit(this.value)">
                                                 <option value="" selected="selected">PILIH JANGKA WAKTU</option>
                                                 <option value="3 Bulan">3 Bulan</option>
                                                 <option value="6 Bulan">6 Bulan</option>
                                                 <option value="12 Bulan">12 Bulan</option>
                                             </select>
                                         </div>
+                                        <div id="tabel-datakredit" class="mb-3"></div>
                                         <div class="mb-3">
                                             <label for="status" class="form-label" >Status Pembayaran</label>
                                             <select name="status" id="status" class="form-select" required disabled>
@@ -85,17 +86,19 @@ if($rowakun['status'] < 2){
                                                 <option value="2">BELUM LUNAS</option>
                                             </select>
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="" class="form-label">Terbayar</label>
-                                                <div class="input-group col-12 mb-3">
-                                                    <span class="input-group-text" >Rp.</span>
-                                                    <input type="text" required name="terbayar" class="form-control" onkeyup="bayarSisa(this.value)">
-                                                </div>
-                                        </div>
-                                        <p style="font-size: 10px;" id="sisabayar"></p>
-                                        <div class="mb-3">
-                                            <label for="" class="form-label">Transaksi Terakhir</label>
-                                            <input type="date" name="tgl_bayar" required class="form-control">
+                                        <div id="transaksi" style="display: none;">
+                                            <div class="mb-3">
+                                                <label for="" class="form-label">Terbayar</label>
+                                                    <div class="input-group col-12 mb-3">
+                                                        <span class="input-group-text" >Rp.</span>
+                                                        <input type="text" name="terbayar" class="form-control" onkeyup="bayarSisa(this.value)">
+                                                    </div>
+                                            </div>
+                                            <p style="font-size: 10px;" id="sisabayar"></p>
+                                            <div class="mb-3">
+                                                <label for="" class="form-label">Transaksi Terakhir</label>
+                                                <input type="date" name="tgl_bayar" class="form-control">
+                                            </div>
                                         </div>
                                         <div class="mb-3">
                                             <label for="bonus" class="form-label">Bonus</label>
@@ -209,23 +212,25 @@ if($rowakun['status'] < 2){
                                                             <label for="" class="form-label">Metode Pembayaran</label>
                                                             <input type="text" readonly value="<?= ucfirst($row['metode_pembayaran']) ?>" class="form-control">
                                                         </div>
-                                                        <div class="mb-3">
-                                                            <label for="" class="form-label">Terbayar</label>
-                                                                <div class="input-group col-12 mb-3">
-                                                                    <span class="input-group-text" >Rp.</span>
-                                                                    <input type="text" readonly value="<?= number_format($row['terbayar'],0,",",".") ?>" class="form-control">
-                                                                </div>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="" class="form-label">Sisa Pembayaran</label>
-                                                                <div class="input-group col-12 mb-3">
-                                                                    <span class="input-group-text" >Rp.</span>
-                                                                    <input type="text" readonly value="<?= number_format($row['sisa_terbayar'],0,",",".") ?>" class="form-control">
-                                                                </div>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="" class="form-label">Transaksi Terakhir</label>
-                                                            <input type="text" readonly value="<?= $row['tgl_bayar'] ?>" class="form-control">
+                                                        <div id="transaksi" style="display: <?= $none = $row['metode_pembayaran'] =="credit" ? "none" : "block" ?>;">
+                                                            <div class="mb-3">
+                                                                <label for="" class="form-label">Terbayar</label>
+                                                                    <div class="input-group col-12 mb-3">
+                                                                        <span class="input-group-text" >Rp.</span>
+                                                                        <input type="text" readonly value="<?= number_format($row['terbayar'],0,",",".") ?>" class="form-control">
+                                                                    </div>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="" class="form-label">Sisa Pembayaran</label>
+                                                                    <div class="input-group col-12 mb-3">
+                                                                        <span class="input-group-text" >Rp.</span>
+                                                                        <input type="text" readonly value="<?= number_format($row['sisa_terbayar'],0,",",".") ?>" class="form-control">
+                                                                    </div>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="" class="form-label">Transaksi Terakhir</label>
+                                                                <input type="text" readonly value="<?= $row['tgl_bayar'] ?>" class="form-control">
+                                                            </div>
                                                         </div>
                                                         <p style="font-size: 15px;">klik <a data-bs-target="#transaksi<?= $row['id_customer'] ?>" data-bs-toggle="modal" href="">disini untuk melihat riwayat transaksi!</a></p>
                                                         <div class="mb-3">
@@ -301,14 +306,32 @@ if($rowakun['status'] < 2){
 
         <!-- js select -->
         <script>
+        function showKredit(str){
+            if (str == "") {
+                document.getElementById("tabel-datakredit").innerHTML = "";
+                return;
+            }
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function() {
+                document.getElementById("tabel-datakredit").innerHTML = this.responseText;
+            }
+            xhttp.open("GET", "kredit_input?jangka="+str+"&tgl=<?= date("Y-m-d") ?>");
+            xhttp.send();
+        }
+        
+    </script>
+        <script>
             function showCredit(str){
                 document.getElementById("status").disabled = false;
                 if(str == "credit"){
+                    document.getElementById("transaksi").style.display = "none";
                     document.getElementById("jangka").style.display = "block";
                     document.getElementById("bonus").value = "150000";
                     document.getElementById("sisa").innerHTML = "*Bonus sisa Rp.150000";
                 }else{
+                    document.getElementById("tabel-datakredit").innerHTML = "";
                     document.getElementById("jangka").style.display = "none";
+                    document.getElementById("transaksi").style.display = "block";
                     document.getElementById("bonus").value = "300000";
                     document.getElementById("sisa").innerHTML = "*Bonus sisa Rp.0";
                 }
