@@ -31,8 +31,20 @@ if($rowakun['status'] != 2){
                 <div class="col-12 mb-3">
                     <label for="market" class="form-label">Nama Marketing</label>
                     <?= $inputtt = $row['nama_marketing'] != '' ? '<input type="hidden" name="marketing"  value="'.$row['nama_marketing'].'">' : '' ?>
-                    
-                    <input type="text"  <?= $readyy = $row['nama_marketing'] != '' ? 'readonly' : 'name="marketing"'  ?> id="" value="<?= ucfirst($row['nama_marketing']) ?>" class="form-control">
+                    <input type="text"  <?= $readyy = $row['nama_marketing'] != '' ? 'readonly' : 'hidden'  ?> id="" value="<?= ucfirst($row['nama_marketing']) ?>" class="form-control">
+                    <?php if($row['nama_marketing'] == ''){ ?>
+                        <select name="sales" required class="form-select" id="username">
+                            <option value="" selected="selected">PILIH USERNAME</option>
+                            <?php 
+                                $queryadminsel = mysqli_query($conn, "SELECT username FROM admin WHERE status='1' ORDER BY username ASC");
+                                while($rowadminsel = mysqli_fetch_assoc($queryadminsel)){
+                                    $querypenjualan = mysqli_query($conn, "SELECT nama_customer FROM data_penjualan WHERE nama_customer='$rowadminsel[username]'");
+                                    $hidden = mysqli_num_rows($querypenjualan) > 0 ? "hidden" : "";
+                                    echo '<option value="'.$rowadminsel['username'].'" '.$hidden.'>'.ucfirst($rowadminsel['username']).'</option>';
+                                }
+                            ?>
+                        </select>
+                    <?php } ?>
                 </div>
                 <div class="col-12 mb-3">
                     <label for="" class="form-label">Username</label>
