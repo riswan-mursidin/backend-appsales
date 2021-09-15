@@ -153,13 +153,13 @@ if($rowakun['status'] != 2){
                 document.getElementById("transaksi").style.display = "none";
                 document.getElementById("tfr").checked = false;
                 document.getElementById("lab").style.display = "none";
+                const xhttp = new XMLHttpRequest();
+                xhttp.onload = function() {
+                    document.getElementById("tabel-datakredit").innerHTML = this.responseText;
+                }
+                xhttp.open("GET", "kredit.php?jangka=<?= $row['jangka_waktu'] ?>&tgl=<?= $row['tgl_daftar'] ?>&username=<?= $row['nama_customer'] ?>");
+                xhttp.send();
             }
-            const xhttp = new XMLHttpRequest();
-            xhttp.onload = function() {
-                document.getElementById("tabel-datakredit").innerHTML = this.responseText;
-            }
-            xhttp.open("GET", "kredit.php?jangka=<?= $row['jangka_waktu'] ?>&tgl=<?= $row['tgl_daftar'] ?>&username=<?= $row['nama_customer'] ?>");
-            xhttp.send();
         });
     </script>
     <script>
