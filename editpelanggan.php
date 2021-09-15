@@ -36,10 +36,10 @@ if($rowakun['status'] != 2){
                         <select name="marketing" required id="marketing" class="form-select">
                             <option value="" selected>Pilih Marketing</option>
                             <?php  
-                            $query = mysqli_query($conn, "SELECT * FROM data_marketing");
-                            while($row = mysqli_fetch_assoc($query)){
+                            $queryer = mysqli_query($conn, "SELECT * FROM data_marketing");
+                            while($rower = mysqli_fetch_assoc($query)){
                             ?>
-                            <option value="<?= $row['nama'] ?>"><?= ucfirst($row['nama']) ?></option>
+                            <option value="<?= $rower['nama'] ?>"><?= ucfirst($rower['nama']) ?></option>
                             <?php } ?>
                         </select>
                     <?php } ?>
