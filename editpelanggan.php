@@ -178,7 +178,7 @@ if($rowakun['status'] != 2){
                 }else{
                     document.getElementById("tabel-datakredit").innerHTML = "";
                     document.getElementById("tf").style.display = "block";
-                    document.getElementById("lab").style.display = "none";
+                    document.getElementById("lab").style.display = "block";
                     document.getElementById("jangka").style.display = "none";
                     document.getElementById("bonus").value = "300000";
                     document.getElementById("sisa").innerHTML = "*Bonus sisa Rp.0";
