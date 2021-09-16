@@ -41,7 +41,7 @@ $rownominal = mysqli_fetch_assoc($querykret);
                 <div class="badge bg-primary" style="width: 7rem;border-radius:3px">LUNAS</div>
                 <?php }else{ ?>
                     <a href="#konfir" data-bs-toggle="modal"><span class="material-icons">done</span></a>
-                    <!-- Modal Hapus-->
+                    <!-- Modal konfir-->
                     <div class="modal fade" id="konfir" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog  modal-sm modal-dialog-centered">
                             <div class="modal-content">
@@ -62,8 +62,8 @@ $rownominal = mysqli_fetch_assoc($querykret);
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- end modal hapus -->
+                    <a href="#aktifkannotif" data-bs-toggle="modal"><span class="material-icons">notifications_active</span></a>
+                    <!-- end modal konfir -->
                 <?php } ?>
             </td>
         </tr>
@@ -95,7 +95,7 @@ $rownominal = mysqli_fetch_assoc($querykret);
                 <div class="badge bg-primary" style="width: 7rem;border-radius:3px">LUNAS</div>
                 <?php }else{ ?>
                     <a href="#konfir<?= $i ?>" data-bs-toggle="modal"><span class="material-icons">done</span></a>
-                    <!-- Modal Hapus-->
+                    <!-- Modal konfir-->
                     <div class="modal fade" id="konfir<?= $i ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog  modal-sm modal-dialog-centered">
                             <div class="modal-content">
@@ -116,8 +116,26 @@ $rownominal = mysqli_fetch_assoc($querykret);
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- end modal hapus -->
+                    <!-- end modal konfir -->
+                    <a href="#aktifkannotif<?= $i ?>" data-bs-toggle="modal"><span class="material-icons">notifications_active</span></a>
+                    <div class="modal fade" id="aktifkannotif<?= $i ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog  modal-sm modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Peringatan Pembayaran!</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    ingatkan Customer atas nama <?= ucfirst($username) ?> untuk melakukan pembayaran?
+                                </div>
+                                <form method="post" action="" class="modal-footer">
+                                    <input type="hidden" name="usernamee" value="<?= $username ?>">
+                                    <button type="submit" name="krmnotif" class="btn btn-danger btn-save">Ya</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 <?php } ?>
             </td>
         </tr>

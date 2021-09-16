@@ -10,18 +10,10 @@ if($_SESSION['login'] != TRUE){
         <div class="row text-center">
           <!-- sALES FITUR -->
           <?php  
-          $querypenjualan = mysqli_query($conn, "SELECT tgl_daftar FROM data_penjualan WHERE nama_customer='$rowakun[username]'");
-          if(mysqli_num_rows($querypenjualan)){
-            $rowtgl = mysqli_fetch_assoc($querypenjualan);
-            $array = explode("-",$rowtgl['tgl_daftar']);
-            $thndb = $array[0];
-            $thnnow = date("Y");
-            if($thndb < $thnnow){
-
-            }
+          if($rowakun['notif'] == "true"){
           ?>
             <div class="alert alert-danger" role="alert">
-              Masa Pakai anda berakhir, Segera hubungi Admin untuk melakukan pembayaran!
+              Anda masih memiliki cicilan, Segera lakukan pembayaran anda!
             </div>
           <?php } ?>
           <h5>HAI KAK <?= strtoupper($rowakun['username'])  ?></h5>
@@ -77,14 +69,16 @@ if($_SESSION['login'] != TRUE){
             <h6>VIDEO TUTORIAL</h6>
           </div>
           <!-- admin -->
+          <?php if($rowakun['status'] == 2){ ?>
+            <div class="col-4 col-md-3 mt-3">
+              <a href="halaman-admin"> <img src="img-admin/userapp.png" class="img-fluid mx-auto d-block" alt="preview" /></a>
+              <h6>PANGATURAN ADMIN</h6>
+            </div>
+          <?php } ?>
           <?php if($rowakun['status'] == 2 || $rowakun['status'] == 3){ ?>
             <div class="col-4 col-sm-3 col-md-3 mt-3">
               <a href="data-penjualan"> <img src="img-admin/penjualan.png" class="img-fluid mx-auto d-block" alt="slider" /></a>
               <h6>DATA PENJUALAN</h6>
-            </div>
-            <div class="col-4 col-md-3 mt-3">
-              <a href="halaman-admin"> <img src="img-admin/userapp.png" class="img-fluid mx-auto d-block" alt="preview" /></a>
-              <h6>PANGATURAN ADMIN</h6>
             </div>
           <?php } ?>
         </div>

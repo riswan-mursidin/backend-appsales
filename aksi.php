@@ -1262,6 +1262,14 @@ if(isset($_POST['pembayarankredit'])){
     $tgl = $_POST['tgl'];
     $nominal = $_POST['nominal'];
     $query = mysqli_query($conn, "INSERT INTO story_cicilan (username,tgl_transaksi,nominal) VALUES('$username','$tgl','$nominal')");
+    if($query){
+        $notifffquery = mysqli_query($conn, "UPDATE admin SET notif='false' WHERE username='$username'");
+    }
+}
+
+if(isset($_POST['krmnotif'])){
+    $username = $_POST['usernamee'];
+    $notifffquery = mysqli_query($conn, "UPDATE admin SET notif='true' WHERE username='$username'");
 }
 
 if(isset($_POST['hapussales'])){

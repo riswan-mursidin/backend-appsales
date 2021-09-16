@@ -104,11 +104,15 @@ $halaman = $_GET['halaman'];
                         <div class="col-6 col-md-3 ">
                             <nav aria-label="Page navigation example">
                                 <ul  class="pagination">
+                                <?php  
+                                    if($halaman-1 != 0 ){
+                                    ?>
                                     <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Previous">
+                                        <a class="page-link" href="data-client?halaman=<?= $halaman-1 ?>" aria-label="Previous">
                                             <span aria-hidden="true">&laquo;</span>
                                         </a>
                                     </li>
+                                    <?php } ?>
                                     <?php  
                                         $query2 = mysqli_query($conn, "SELECT id_costumer FROM costumer WHERE kategori='1' AND id_admin = '$_SESSION[user]'");
                                         $jmldata = mysqli_num_rows($query2);
@@ -123,9 +127,15 @@ $halaman = $_GET['halaman'];
                                     ?>
                                     
 
-                                        <a class="page-link" href="#" aria-label="Next">
+                                    <?php  
+                                    if($halaman < $jmlhalaman){
+                                    ?>
+                                    <li class="page-item">
+                                        <a class="page-link" href="data-client?halaman=<?= $halaman+1 ?>" aria-label="Next">
                                             <span aria-hidden="true">&raquo;</span>
                                         </a>
+                                    </li>
+                                    <?php } ?>
                                     </li>
                                 </ul>
                             </nav>

@@ -101,18 +101,22 @@ $halaman = $_GET['halaman'];
                 </table>
                 <nav aria-label="Page navigation example">
                                 <ul  class="pagination">
+                                <?php  
+                                    if($halaman-1 != 0 ){
+                                    ?>
                                     <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Previous">
+                                        <a class="page-link" href="data-followup?halaman=<?= $halaman-1 ?>" aria-label="Previous">
                                             <span aria-hidden="true">&laquo;</span>
                                         </a>
                                     </li>
+                                    <?php } ?>
                                     <?php  
                                         $query2 = mysqli_query($conn, "SELECT id_costumer FROM costumer WHERE id_admin = '$_SESSION[user]' AND kategori IS NULL");
                                         $jmldata = mysqli_num_rows($query2);
                                         $jmlhalaman = ceil($jmldata/$batas);
                                         for($j=1; $j<=$jmlhalaman; $j++){
                                             if($j != $halaman){
-                                                echo '<li class="page-item"><a class="page-link" href="data-client?halaman='.$j.'">'.$j.'</a></li>';
+                                                echo '<li class="page-item"><a class="page-link" href="data-followup?halaman='.$j.'">'.$j.'</a></li>';
                                             }else{
                                                 echo '<li class="page-item"><a class="page-link" href="#">'.$j.'</a></li>';
                                             }
@@ -120,9 +124,15 @@ $halaman = $_GET['halaman'];
                                     ?>
                                     
 
-                                        <a class="page-link" href="#" aria-label="Next">
+                                    <?php  
+                                    if($halaman < $jmlhalaman){
+                                    ?>
+                                    <li class="page-item">
+                                        <a class="page-link" href="data-followup?halaman=<?= $halaman+1 ?>" aria-label="Next">
                                             <span aria-hidden="true">&raquo;</span>
                                         </a>
+                                    </li>
+                                    <?php } ?>
                                     </li>
                                 </ul>
                             </nav>

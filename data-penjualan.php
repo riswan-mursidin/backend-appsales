@@ -132,14 +132,20 @@ if($rowakun['status'] < 2){
                                     <th scope="col">STATUS</th>
                                     <!-- <th scope="col">BONUS</th>
                                     <th scope="col">SISA</th> -->
-                                    <?php if($rowakun['status'] == 2){ ?>
                                     <th scope="col">AKSI</th>
-                                    <?php } ?>
                                 </tr>
                             </thead>
                             <tbody>
                             <?php  
-                            $queryadmin = "SELECT * FROM data_penjualan ORDER BY tgl_daftar DESC";
+                            $batas = 5;
+                            $halaman = $_GET['halaman'];
+                            if(empty($halaman)){
+                                $posisi = 0;
+                                $halaman = 1;
+                            }else{
+                                $posisi = ($halaman-1) * $batas;
+                            }
+                            $queryadmin = "SELECT * FROM data_penjualan ORDER BY tgl_daftar DESC LIMIT $posisi,$batas";
                             $resultadmin = mysqli_query($conn, $queryadmin);
                             while($row = mysqli_fetch_assoc($resultadmin)){
                             ?>
@@ -171,12 +177,58 @@ if($rowakun['status'] < 2){
                                         <a href="#infopelanggan<?= $row['id_customer'] ?>" data-bs-toggle="modal"><span class="material-icons">info</span></a>
                                         <a href="#hapuspelanggan<?= $row['id_customer'] ?>" data-bs-toggle="modal"><span class="material-icons">delete</span></a>
                                     </td>
+                                    <?php }else{ ?>
+                                    <td>
+                                        <a href="#infopelanggan<?= $row['id_customer'] ?>" data-bs-toggle="modal"><span class="material-icons">info</span></a>
+                                    </td>
                                     <?php } ?>
                                 </tr>
                             <?php } ?>
                             </tbody>
                         </table>
                     </div>
+                    <nav aria-label="...">
+                        <ul class="pagination">
+                            <?php  
+                            if($halaman-1 != 0 ){
+                                $l = $halaman - 1;
+                                echo '<li class="page-item"><a href="data-penjualan?halaman='.$l.'" class="page-link">Previous</a></li>';
+                            }else{
+                                echo '<li class="page-item disabled">
+                                        <span class="page-link">Previous</span>
+                                    </li>';
+                            }
+                            ?>
+                            
+                            <?php  
+                            $pagi = mysqli_query($conn, "SELECT * FROM data_penjualan ORDER BY tgl_daftar");
+                            $jumlah = mysqli_num_rows($pagi);
+                            $bnykhalaman = ceil($jumlah/$batas);
+                            for($j=1; $j<=$bnykhalaman; $j++){
+                                if($j != $halaman){
+                                    echo '<li class="page-item"><a class="page-link" href="data-penjualan?halaman='.$j.'">'.$j.'</a></li>';
+                                }else{
+                                    echo ' <li class="page-item active" aria-current="page">
+                                                <span class="page-link">'.$j.'</span>
+                                            </li>';
+                                }
+                            }
+                            ?>
+                            
+                            <?php  
+                            if($halaman < $bnykhalaman){
+                                $g = $halaman + 1;
+                                echo '<li class="page-item">
+                                    <a class="page-link" href="data-penjualan?halaman='.$g.'">Next</a>
+                                </li>';
+                            }else{
+                                echo '<li class="page-item disabled">
+                                        <span class="page-link">Next</span>
+                                    </li>';
+                            }
+                            ?>
+                        </ul>
+                    </nav>
                 <p class="mt-5 footer">
                 support by
                 <a style="color: black" href="https://galeriide.com">galeriide.com</a>
