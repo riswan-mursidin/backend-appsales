@@ -13,7 +13,7 @@ if($_SESSION['login'] != TRUE){
           if($rowakun['notif'] == "true"){
           ?>
             <div class="alert alert-danger" role="alert">
-              Anda masih memiliki cicilan, Segera lakukan pembayaran anda!
+              Anda masih memiliki Pembayaran, silahkan cek email anda!
             </div>
           <?php } ?>
           <h5>HAI KAK <?= strtoupper($rowakun['username'])  ?></h5>

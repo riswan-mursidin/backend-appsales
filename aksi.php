@@ -1241,6 +1241,7 @@ if(isset($_POST['aksieditsal'])){
         $jumlah += $rowtf['nominal'];
     }
     if(isset($_POST['tf'])){
+        $notifffquery = mysqli_query($conn, "UPDATE admin SET notif='false' WHERE username='$username'");
         $terbayardb = $terbayar + $jumlah;
         $sisabayar = 1500000 - $terbayardb;
         $querysave = mysqli_query($conn, "UPDATE data_penjualan SET nama_marketing='$marketing',metode_pembayaran='$pembayaran',terbayar='$terbayardb',sisa_terbayar='$sisabayar',tgl_bayar='$tgl_bayar',jangka_waktu='No',status_pembayaran='$status',bonus_penjualan='$bonus',sisa='$sisa' WHERE id_customer='$id' ");
@@ -1278,7 +1279,39 @@ if(isset($_POST['krmnotif'])){
     $to = $email;
     $subject = "Pembayaran APPSALES";
     $txt = "Halo Kak ".ucfirst($username).", Kami dari Tim Galeri Ide Ingin menyampaikan bahwa pembayaran Kredit APPSALES " . "\r\n" .
-            "yang sudah jatuh tempo pada tanggal $tgl. " . "\r\n" .
+            "yang sudah jatuh tempo pada tanggal $tgl Senilai $nominal".  "\r\n" .
+            
+            "Untuk Pembayaran bisa Transfer Melalui: " . "\r\n" .
+            "Bank: BCA " . "\r\n" .
+            "A/N: Sartika Ansar" . "\r\n" .
+            "Nomor Rekening :  8735 208 434" . "\r\n\n" .
+            
+            "Segera Konfirmasi Pembayarannya yah kak melalui 0821-8900-0701 (WhatsApp) " . "\r\n\n" .
+            
+            "Terima kasih :)";
+    $headers = "From: sales@galeriide.net" . "\r\n" .
+            "CC: sales@galeriide.net";
+    if(mail($to,$subject,$txt,$headers)){
+        $notifffquery = mysqli_query($conn, "UPDATE admin SET notif='true' WHERE username='$username'");
+    }else{
+        echo '<script>
+                alert("Gagal mengirim Pesan");
+            </script>';
+    }
+}
+
+if(isset($_POST['notifcash'])){
+    require_once 'function.php';
+    $username = $_POST['usernamee'];
+    $tgl = $_POST['tgl'];
+    $nominal = $_POST['nominal'];
+    $query = mysqli_query($conn, "SELECT email FROM admin WHERE username='$username'");
+    $rowemail = mysqli_fetch_assoc($query);
+    $email = $rowemail['email'];
+    $to = $email;
+    $subject = "Pembayaran APPSALES";
+    $txt = "Halo Kak ".ucfirst($username).", Kami dari Tim Galeri Ide Ingin menyampaikan " . "\r\n" .
+            "Bahwa kakak masih punya tagihan pada APPSALES Senilai $nominal".  "\r\n" .
             
             "Untuk Pembayaran bisa Transfer Melalui: " . "\r\n" .
             "Bank: BCA " . "\r\n" .

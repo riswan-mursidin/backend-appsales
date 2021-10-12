@@ -86,19 +86,62 @@ if($rowakun['status'] != 2){
 
                 <div class="col-12 mb-3">
                     <label for="status" class="form-label" >Status Pembayaran</label>
-                    <select name="status" id="status" class="form-select" required >
-                        <option value="" hidden>PILIH STATUS</option>
-                        <?php  
+                    
+                    <?php  
+                    if($row['metode_pembayaran'] == "cash" && $row['status_pembayaran'] == "2"){
+                    ?>
 
-                        $status = array("LUNAS","BELUM LUNAS");
-                        $value = 1; 
-                        for($k=0;$k<count($status);$k++){
-                            $selected = $value == $row['status_pembayaran'] ? "selected='selected'" : "";
-                            echo '<option value="'.$value.'" '.$selected.'>'.$status[$k].'</option>';
-                            ++$value;
-                        }
-                        ?>
-                    </select>
+                    <div class="input-group col-12 mb-3" >
+                        <button class="input-group-text" type="button" data-bs-toggle="modal" data-bs-target="#notifcash"><span class="material-icons">notifications_active</span></button>
+                        <select name="status" id="status" class="form-select" required >
+                            <option value="" hidden>PILIH STATUS</option>
+                            <?php  
+    
+                            $status = array("LUNAS","BELUM LUNAS");
+                            $value = 1; 
+                            for($k=0;$k<count($status);$k++){
+                                $selected = $value == $row['status_pembayaran'] ? "selected='selected'" : "";
+                                echo '<option value="'.$value.'" '.$selected.'>'.$status[$k].'</option>';
+                                ++$value;
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="modal fade" id="notifcash" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog  modal-sm modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Peringatan Pembayaran!</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    ingatkan Customer atas nama <?= ucfirst($row['nama_customer']) ?> untuk melakukan pembayaran?
+                                </div>
+                                <form method="post" action="" class="modal-footer">
+                                    <input type="hidden" value="<?= $thn.'-'.$format ?>" name="tgl">
+                                    <input type="hidden" name="nominal" value="Rp.<?= number_format($row['sisa_terbayar'],2,",",".")?>">
+                                    <input type="hidden" name="usernamee" value="<?= $row['nama_customer'] ?>">
+                                    <button type="submit" name="notifcash" class="btn btn-danger btn-save">Ya</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <?php }else{ ?>
+                        <select name="status" id="status" class="form-select" required >
+                            <option value="" hidden>PILIH STATUS</option>
+                            <?php  
+    
+                            $status = array("LUNAS","BELUM LUNAS");
+                            $value = 1; 
+                            for($k=0;$k<count($status);$k++){
+                                $selected = $value == $row['status_pembayaran'] ? "selected='selected'" : "";
+                                echo '<option value="'.$value.'" '.$selected.'>'.$status[$k].'</option>';
+                                ++$value;
+                            }
+                            ?>
+                        </select>
+                    <?php } ?>
                 </div>
                 <div class="col-12 form-check " id="tf">
                     <input class="form-check-input" name="tf"  type="checkbox"  onclick="showTr()" id="tfr">
