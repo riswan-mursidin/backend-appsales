@@ -65,12 +65,12 @@ $rownominal = mysqli_fetch_assoc($querykret);
                     <?php  
                     $cekstatusemail = mysqli_query($conn, "SELECT notif FROM admin WHERE username='$username'");
                     $rowcek = mysqli_fetch_assoc($cekstatusemail);
-                    $disable = "";
+                    $disable = "#aktifkannotif";
                     if($rowcek['notif'] == "true"){
-                        $disable = "disabled";
+                        $disable = "#";
                     }
                     ?>
-                    <a href="#aktifkannotif" data-bs-toggle="modal" <?= $disable ?>><span class="material-icons">notifications_active</span></a>
+                    <a href="<?= $disable ?>" data-bs-toggle="modal" ><span class="material-icons">notifications_active</span></a>
                     <div class="modal fade" id="aktifkannotif" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog  modal-sm modal-dialog-centered">
                             <div class="modal-content">
@@ -149,12 +149,12 @@ $rownominal = mysqli_fetch_assoc($querykret);
                     <?php  
                     $cekstatusemail = mysqli_query($conn, "SELECT notif FROM admin WHERE username='$username'");
                     $rowcek = mysqli_fetch_assoc($cekstatusemail);
-                    $disable = "";
+                    $disable = "#aktifkannotif$i";
                     if($rowcek['notif'] == "true"){
-                        $disable = "disabled";
+                        $disable = "#";
                     }
                     ?>
-                    <a href="#aktifkannotif<?= $i ?>" data-bs-toggle="modal" $disable><span class="material-icons">notifications_active</span></a>
+                    <a href="<?= $disable ?>" data-bs-toggle="modal" ><span class="material-icons">notifications_active</span></a>
                     <div class="modal fade" id="aktifkannotif<?= $i ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog  modal-sm modal-dialog-centered">
                             <div class="modal-content">
