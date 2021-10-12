@@ -1268,8 +1268,35 @@ if(isset($_POST['pembayarankredit'])){
 }
 
 if(isset($_POST['krmnotif'])){
+    require_once 'function.php';
     $username = $_POST['usernamee'];
-    $notifffquery = mysqli_query($conn, "UPDATE admin SET notif='true' WHERE username='$username'");
+    $tgl = $_POST['tgl'];
+    $nominal = $_POST['nominal'];
+    $query = mysqli_query($conn, "SELECT email FROM admin WHERE username='$username'");
+    $rowemail = mysqli_fetch_assoc($query);
+    $email = $rowemail['email'];
+    $to = $email;
+    $subject = "Pembayaran APPSALES";
+    $txt = "Halo Kak $username, Kami dari Tim Galeri Ide Ingin menyampaikan bahwa pembayaran Kredit APPSALES " . "\r\n" .
+            "yang sudah jatuh tempo pada tanggal $tgl. " . "\r\n" .
+            
+            "Untuk Pembayaran bisa Transfer Melalui: " . "\r\n" .
+            "Bank: BCA " . "\r\n" .
+            "A/N: SARTIKA ANSAR" . "\r\n" .
+            "Nomor Rekening :  8735 208 434" . "\r\n\n" .
+            
+            "Segera Konfirmasi Pembayarannya yah kak melalui 0821-8900-0701 (WhatsApp) " . "\r\n\n" .
+            
+            "Terima kasih :)";
+    $headers = "From: sales@galeriide.net" . "\r\n" .
+            "CC: sales@galeriide.net";
+    if(mail($to,$subject,$txt,$headers)){
+        $notifffquery = mysqli_query($conn, "UPDATE admin SET notif='true' WHERE username='$username'");
+    }else{
+        echo '<script>
+                alert("Gagal mengirim Pesan");
+            </script>';
+    }
 }
 
 if(isset($_POST['hapussales'])){

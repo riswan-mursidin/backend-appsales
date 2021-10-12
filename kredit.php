@@ -63,10 +63,31 @@ $rownominal = mysqli_fetch_assoc($querykret);
                         </div>
                     </div>
                     <a href="#aktifkannotif" data-bs-toggle="modal"><span class="material-icons">notifications_active</span></a>
+                    <div class="modal fade" id="aktifkannotif" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog  modal-sm modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Peringatan Pembayaran!</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    ingatkan Customer atas nama <?= ucfirst($username) ?> untuk melakukan pembayaran?
+                                </div>
+                                <form method="post" action="" class="modal-footer">
+                                    <input type="hidden" value="<?= $thn.'-'.$format ?>" name="tgl">
+                                    <input type="hidden" name="nominal" value="Rp.<?= number_format(500000,2,",",".")?>">
+                                    <input type="hidden" name="usernamee" value="<?= $username ?>">
+                                    <button type="submit" name="krmnotif" class="btn btn-danger btn-save">Ya</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                     <!-- end modal konfir -->
                 <?php } ?>
             </td>
         </tr>
+        
         <?php  
         $j = 1;
         for($i=1; $i<=$jangka; $i++){
@@ -129,6 +150,8 @@ $rownominal = mysqli_fetch_assoc($querykret);
                                     ingatkan Customer atas nama <?= ucfirst($username) ?> untuk melakukan pembayaran?
                                 </div>
                                 <form method="post" action="" class="modal-footer">
+                                <input type="hidden" value="<?= $thn.'-'.$format.'-'.$formatt ?>" name="tgl">
+                                    <input type="hidden" name="nominal" value="Rp.<?= number_format($rownominal['nominal'],2,",",".")?>">
                                     <input type="hidden" name="usernamee" value="<?= $username ?>">
                                     <button type="submit" name="krmnotif" class="btn btn-danger btn-save">Ya</button>
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>

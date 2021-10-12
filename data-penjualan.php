@@ -115,6 +115,7 @@ if($rowakun['status'] < 2){
                                     </div>
                                 </form>
                             </div>
+                            
                         </div>
                     </div>
                     <?php } ?>
