@@ -33,7 +33,7 @@ if($rowakun['status'] != 2){
                     <?= $inputtt = $row['nama_marketing'] != '' ? '<input type="hidden" name="marketing"  value="'.$row['nama_marketing'].'">' : '' ?>
                     <input type="text"  <?= $readyy = $row['nama_marketing'] != '' ? 'readonly' : 'hidden'  ?> id="" value="<?= ucfirst($row['nama_marketing']) ?>" class="form-control">
                     <?php if($row['nama_marketing'] == ''){ ?>
-                        <select name="marketing" required id="marketing" class="form-select">
+                        <select name="marketing" id="marketing" class="form-select">
                             <option value="" selected>Pilih Marketing</option>
                             <?php  
                             $queryer = mysqli_query($conn, "SELECT * FROM data_marketing");
