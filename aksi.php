@@ -1277,12 +1277,12 @@ if(isset($_POST['krmnotif'])){
     $email = $rowemail['email'];
     $to = $email;
     $subject = "Pembayaran APPSALES";
-    $txt = "Halo Kak $username, Kami dari Tim Galeri Ide Ingin menyampaikan bahwa pembayaran Kredit APPSALES " . "\r\n" .
+    $txt = "Halo Kak ".ucfirst($username).", Kami dari Tim Galeri Ide Ingin menyampaikan bahwa pembayaran Kredit APPSALES " . "\r\n" .
             "yang sudah jatuh tempo pada tanggal $tgl. " . "\r\n" .
             
             "Untuk Pembayaran bisa Transfer Melalui: " . "\r\n" .
             "Bank: BCA " . "\r\n" .
-            "A/N: SARTIKA ANSAR" . "\r\n" .
+            "A/N: Sartika Ansar" . "\r\n" .
             "Nomor Rekening :  8735 208 434" . "\r\n\n" .
             
             "Segera Konfirmasi Pembayarannya yah kak melalui 0821-8900-0701 (WhatsApp) " . "\r\n\n" .
