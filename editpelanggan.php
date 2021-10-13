@@ -107,26 +107,7 @@ if($rowakun['status'] != 2){
                             ?>
                         </select>
                     </div>
-                    <div class="modal fade" id="notifcash" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog  modal-sm modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Peringatan Pembayaran!</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    ingatkan Customer atas nama <?= ucfirst($row['nama_customer']) ?> untuk melakukan pembayaran?
-                                </div>
-                                <form method="post" action="" class="modal-footer">
-                                    <input type="hidden" value="<?= $thn.'-'.$format ?>" name="tgl">
-                                    <input type="hidden" name="nominal" value="Rp.<?= number_format($row['sisa_terbayar'],2,",",".")?>">
-                                    <input type="hidden" name="usernamee" value="<?= $row['nama_customer'] ?>">
-                                    <button type="submit" name="notifcash" class="btn btn-danger btn-save">Ya</button>
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+                    
                     <?php }else{ ?>
                         <select name="status" id="status" class="form-select" required >
                             <option value="" hidden>PILIH STATUS</option>
@@ -151,11 +132,11 @@ if($rowakun['status'] != 2){
                 </div>
                 <div id="transaksi" style="display: none;">
                     <div class="col-12 mb-3">
-                    <label for="" class="form-label">Nominal Pembayaran</label>
-                        <div class="input-group col-12 mb-3">
-                            <span class="input-group-text" >Rp.</span>
-                            <input type="number" name="terbayar" id="terbayar" value="0" class="form-control" onkeyup="bayarSisa(this.value)">
-                        </div>
+                        <label for="" class="form-label">Nominal Pembayaran</label>
+                            <div class="input-group col-12 mb-3">
+                                <span class="input-group-text" >Rp.</span>
+                                <input type="number" name="terbayar" id="terbayar" value="0" class="form-control" onkeyup="bayarSisa(this.value)">
+                            </div>
                         
                     </div>
                     <div class="col-12 mb-3">
@@ -181,6 +162,26 @@ if($rowakun['status'] != 2){
             </p>
         </div>
     </section>
+    <div class="modal fade" id="notifcash" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog  modal-sm modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Peringatan Pembayaran!</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    ingatkan Customer atas nama <?= ucfirst($row['nama_customer']) ?> untuk melakukan pembayaran?
+                                </div>
+                                <form method="post" action="" class="modal-footer">
+                                    <input type="hidden" value="<?= $thn.'-'.$format ?>" name="tgl">
+                                    <input type="hidden" name="nominal" value="Rp.<?= number_format($row['sisa_terbayar'],2,",",".")?>">
+                                    <input type="hidden" name="usernamee" value="<?= $row['nama_customer'] ?>">
+                                    <button type="submit" name="notifcash" class="btn btn-danger btn-save">Ya</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
     <!-- js select -->
     <script>
         $(document).ready(function(){
