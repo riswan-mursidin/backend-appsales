@@ -68,8 +68,8 @@ if($rowakun['status'] != 2){
                 </div>
                 <div class="col-12 mb-3" id="jangka" style="display: <?=  $hidden = $row['metode_pembayaran'] == "cash" ? "none" : "block"; ?>;">
                     <label for="jangka" class="form-label">Jangka Waktu</label>
-                    <?= $input2 = $row['jangka_waktu'] != "No" ? '<input type="hidden" name="jangka" value="'.$row['jangka_waktu'].'">' : "" ?>
-                    <select <?= $read = $row['jangka_waktu'] != "No" ? "disabled" : "name='jangka'" ?> id="jangka" class="form-select" onchange="showKredit(this.value)">
+                    <?= $input2 = $row['jangka_waktu'] == "No" ? '<input type="hidden" name="jangka" value="'.$row['jangka_waktu'].'">' : "" ?>
+                    <select <?= $read = $row['jangka_waktu'] == "No" ? "disabled" : "name='jangka'" ?> id="jangka" class="form-select" onchange="showKredit(this.value)">
                         <option value="" selected="selected">PILIH JANGKA WAKTU</option>
                         <?php  
                         $jangka = array("3 Bulan","6 Bulan","12 Bulan");
